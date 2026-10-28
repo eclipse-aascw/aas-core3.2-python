@@ -2,21 +2,21 @@
 XML De/serialization
 ********************
 
-The code that de/serializes AAS models from and to XML documents lives in the module :py:mod:`aas_core3_1.xmlization`.
+The code that de/serializes AAS models from and to XML documents lives in the module :py:mod:`aas_core3_2.xmlization`.
 
 Serialize
 =========
 
-You serialize the AAS model to XML-encoded text by calling the function :py:func:`aas_core3_1.xmlization.to_str`.
+You serialize the AAS model to XML-encoded text by calling the function :py:func:`aas_core3_2.xmlization.to_str`.
 
-If you want the same text to be written incrementally to a :py:class:`typing.TextIO` stream, you can use the function :py:func:`aas_core3_1.xmlization.write`.
+If you want the same text to be written incrementally to a :py:class:`typing.TextIO` stream, you can use the function :py:func:`aas_core3_2.xmlization.write`.
 
 Here is an example snippet:
 
 .. testcode::
 
-    import aas_core3_1.types as aas_types
-    import aas_core3_1.xmlization as aas_xmlization
+    import aas_core3_2.types as aas_types
+    import aas_core3_2.xmlization as aas_xmlization
 
     # Prepare the environment
     environment = aas_types.Environment(
@@ -43,7 +43,7 @@ Expected output:
 
 .. testoutput::
 
-    <environment xmlns="https://admin-shell.io/aas/3/1"><submodels><submodel><id>some-unique-global-identifier</id><submodelElements><property><idShort>some_property</idShort><valueType>xs:int</valueType><value>1984</value></property></submodelElements></submodel></submodels></environment>
+    <environment xmlns="https://admin-shell.io/aas/3/2"><submodels><submodel><id>some-unique-global-identifier</id><submodelElements><property><idShort>some_property</idShort><valueType>xs:int</valueType><value>1984</value></property></submodelElements></submodel></submodels></environment>
 
 
 De-serialize
@@ -51,19 +51,19 @@ De-serialize
 
 You can de-serialize an environment from XML coming from four different sources by using different functions:
 
-* :py:func:`aas_core3_1.xmlization.environment_from_iterparse`, where a stream coming from :py:func:`xml.etree.ElementTree.iterparse` is expected with ``events`` set to ``["start", "end"]``,
-* :py:func:`aas_core3_1.xmlization.environment_from_stream`, which expects a textual stream behaving according to :py:class:`typing.TextIO`,
-* :py:func:`aas_core3_1.xmlization.environment_from_file`, which expects a path to the file containing the XML of the environment, or
-* :py:func:`aas_core3.xmlization.environment_from_str`, which de-serialized the environment from an XML-encoded string.
+* :py:func:`aas_core3_2.xmlization.environment_from_iterparse`, where a stream coming from :py:func:`xml.etree.ElementTree.iterparse` is expected with ``events`` set to ``["start", "end"]``,
+* :py:func:`aas_core3_2.xmlization.environment_from_stream`, which expects a textual stream behaving according to :py:class:`typing.TextIO`,
+* :py:func:`aas_core3_2.xmlization.environment_from_file`, which expects a path to the file containing the XML of the environment, or
+* :py:func:`aas_core3_2.xmlization.environment_from_str`, which de-serialized the environment from an XML-encoded string.
 
-Here is a snippet which parses XML as text and then de-serializes it into an instance of :py:class:`~aas_core3_1.types.Environment`:
+Here is a snippet which parses XML as text and then de-serializes it into an instance of :py:class:`~aas_core3_2.types.Environment`:
 
 .. testcode::
 
-    import aas_core3_1.xmlization as aas_xmlization
+    import aas_core3_2.xmlization as aas_xmlization
 
     text = (
-        "<environment xmlns=\"https://admin-shell.io/aas/3/1\">" +
+        "<environment xmlns=\"https://admin-shell.io/aas/3/2\">" +
         "<submodels><submodel>" +
         "<id>some-unique-global-identifier</id>" +
         "<submodelElements><property><idShort>someProperty</idShort>" +
@@ -80,18 +80,18 @@ Expected output:
 
 .. testoutput::
 
-    <class 'aas_core3_1.types.Submodel'>
-    <class 'aas_core3_1.types.Property'>
+    <class 'aas_core3_2.types.Submodel'>
+    <class 'aas_core3_2.types.Property'>
 
 You can also de-serialize other model classes other than ``Environment``.
-For example, to de-serialize a submodel, you can use :py:func:`aas_core3_1.xmlization.submodel_from_str`:
+For example, to de-serialize a submodel, you can use :py:func:`aas_core3_2.xmlization.submodel_from_str`:
 
 .. testcode::
 
-    import aas_core3_1.xmlization as aas_xmlization
+    import aas_core3_2.xmlization as aas_xmlization
 
     text = (
-        "<submodel xmlns=\"https://admin-shell.io/aas/3/1\">" +
+        "<submodel xmlns=\"https://admin-shell.io/aas/3/2\">" +
         "<id>some-unique-global-identifier</id>" +
         "<submodelElements><property><idShort>someProperty</idShort>" +
         "<valueType>xs:boolean</valueType></property></submodelElements>" +
@@ -107,18 +107,18 @@ Expected output:
 
 .. testoutput::
 
-    <class 'aas_core3_1.types.Property'>
+    <class 'aas_core3_2.types.Property'>
 
-If you do not know the model type in advance, you can use the general functions such as :py:func:`aas_core3_1.xmlization.from_str` and :py:func:`aas_core3_1.xmlization.from_file`.
+If you do not know the model type in advance, you can use the general functions such as :py:func:`aas_core3_2.xmlization.from_str` and :py:func:`aas_core3_2.xmlization.from_file`.
 The model type will be determined based on the first start element.
 The same example above can be thus rewritten:
 
 .. testcode::
 
-    import aas_core3_1.xmlization as aas_xmlization
+    import aas_core3_2.xmlization as aas_xmlization
 
     text = (
-        "<submodel xmlns=\"https://admin-shell.io/aas/3/1\">" +
+        "<submodel xmlns=\"https://admin-shell.io/aas/3/2\">" +
         "<id>some-unique-global-identifier</id>" +
         "<submodelElements><property><idShort>someProperty</idShort>" +
         "<valueType>xs:boolean</valueType></property></submodelElements>" +
@@ -134,15 +134,15 @@ Expected output:
 
 .. testoutput::
 
-    <class 'aas_core3_1.types.Property'>
+    <class 'aas_core3_2.types.Property'>
 
-Prefer the particular de-serialization (:py:func:`aas_core3_1.xmlization.submodel_from_str`) whenever you know the type in advance.
+Prefer the particular de-serialization (:py:func:`aas_core3_2.xmlization.submodel_from_str`) whenever you know the type in advance.
 The particular de-serialization function will check the actual model type for you, and you also get more precise type annotations for your downstream code.
 
 Errors
 ======
 
-If the XML document comes in an unexpected form, our SDK throws a :py:class:`aas_core3_1.xmlization.DeserializationException`.
+If the XML document comes in an unexpected form, our SDK throws a :py:class:`aas_core3_2.xmlization.DeserializationException`.
 This can happen, for example, if unexpected XML elements or XML attributes are encountered, or an expected XML element is missing.
 
 Disregarding XML Attributes
@@ -161,14 +161,14 @@ Here is an example snippet:
     import xml.etree.ElementTree
     from typing import Tuple, Iterator
 
-    import aas_core3_1.xmlization as aas_xmlization
+    import aas_core3_2.xmlization as aas_xmlization
 
     text = (
             '<?xml version="1.0" encoding="UTF-8"?>\n'
         '<environment\n'
-        '    xmlns="https://admin-shell.io/aas/3/1"\n'
+        '    xmlns="https://admin-shell.io/aas/3/2"\n'
         '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
-        '    xsi:schemaLocation="https://admin-shell.io/aas/3/1/AAS.xsd">\n'
+        '    xsi:schemaLocation="https://admin-shell.io/aas/3/2/AAS.xsd">\n'
         '</environment>\n'
     )
 
@@ -200,6 +200,6 @@ Here is an example snippet:
     serialization = aas_xmlization.to_str(environment)
 
     assert (
-        '<environment xmlns="https://admin-shell.io/aas/3/1"/>'
+        '<environment xmlns="https://admin-shell.io/aas/3/2"/>'
         == serialization
     )

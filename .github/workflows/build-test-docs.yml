@@ -6,19 +6,25 @@ on:
     tags: [ "**" ]
   pull_request:
     branches: [ "**" ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
-  Execute:
+  Build-and-test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
+        # NOTE: sphinx-paramlinks depends on distutils, which has been removed
+        # in Python 3.12.
         python-version: ['3.10']
 
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v4
 
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
 
@@ -30,8 +36,35 @@ jobs:
 
       - name: Build the docs
         run: |
-          sphinx-build docs/source docs/build
+          sphinx-build -W --keep-going docs/source docs/build
 
       - name: Test the docs
         run: |
-          sphinx-build docs/source docs/build -b doctest
+          sphinx-build docs/source docs/build-doctest -b doctest
+
+      - name: Upload the docs as a Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/build
+
+  Deploy:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: Build-and-test
+    runs-on: ubuntu-latest
+
+    permissions:
+      pages: write
+      id-token: write
+
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
