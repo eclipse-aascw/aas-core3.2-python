@@ -1,0 +1,24 @@
+<environment xmlns="https://admin-shell.io/aas/3/2">
+  <assetAdministrationShells>
+    <assetAdministrationShell>
+      <id>J5</id>
+      <assetInformation>
+        <assetKind>Type</assetKind>
+        <globalAssetId>J5</globalAssetId>
+      </assetInformation>
+    </assetAdministrationShell>
+    <assetAdministrationShell>
+      <id>11ÕÑ𐻨´K􂬭e&lt;󡗞¨ngA</id>
+      <assetInformation>
+        <assetKind>Instance</assetKind>
+        <globalAssetId>򤑌M𪠇𛔊򂄲</globalAssetId>
+      </assetInformation>
+    </assetAdministrationShell>
+  </assetAdministrationShells>
+  <submodels>
+    <submodel>
+      <id>0</id>
+    </submodel>
+  </submodels>
+  <conceptDescriptions />
+</environment>

@@ -1,0 +1,9 @@
+<reference xmlns="https://admin-shell.io/aas/3/2">
+  <type>ExternalReference</type>
+  <keys>
+    <key>
+      <type>Blob</type>
+      <value>https://example.com/something</value>
+    </key>
+  </keys>
+</reference>

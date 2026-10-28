@@ -1,0 +1,70 @@
+{
+  "embeddedDataSpecifications": [
+    {
+      "dataSpecification": {
+        "type": "ExternalReference",
+        "keys": [
+          {
+            "type": "GlobalReference",
+            "value": "urn:another-company:03:97fadb7b"
+          }
+        ]
+      },
+      "dataSpecificationContent": {
+        "preferredName": [
+          {
+            "language": "en-JM-x-87ce29ed",
+            "text": "J5"
+          },
+          {
+            "language": "en-JM-x-7c40ee17",
+            "text": "\u00db\u0103<P\udb63\udc7d\u00b2|dn\u009c\u00de\u00ae"
+          },
+          {
+            "language": "en-JM-x-f49c2ad1",
+            "text": "[\\h$\ud90b\ude9f\u00ec\u00d6\u010b\u008a1\u00bf"
+          }
+        ],
+        "modelType": "DataSpecificationIec61360"
+      }
+    },
+    {
+      "dataSpecification": {
+        "type": "ExternalReference",
+        "keys": [
+          {
+            "type": "GlobalReference",
+            "value": "urn:an-example:10:3fc193a2"
+          }
+        ]
+      },
+      "dataSpecificationContent": {
+        "preferredName": [
+          {
+            "language": "en-JM-x-e705ce52",
+            "text": "0"
+          },
+          {
+            "language": "en-JM-x-27e497c3",
+            "text": "[\\h$\ud90b\ude9f\u00ec\u00d6\u010b\u008a1\u00bf"
+          }
+        ],
+        "modelType": "DataSpecificationIec61360"
+      }
+    }
+  ],
+  "version": "116",
+  "revision": "116",
+  "creator": {
+    "type": "ExternalReference",
+    "keys": [
+      {
+        "type": "GlobalReference",
+        "value": "urn:an-example:13:f3f732d5"
+      }
+    ]
+  },
+  "createdAt": "2022-04-01T24:00:00+00:00",
+  "updatedAt": "2022-04-01T24:00:00Z",
+  "templateId": ""
+}

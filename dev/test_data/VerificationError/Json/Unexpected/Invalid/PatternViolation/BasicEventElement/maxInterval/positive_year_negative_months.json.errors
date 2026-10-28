@@ -1,0 +1,2 @@
+: Max. interval is not applicable for input direction.
+.max_interval: The value must match the pattern of xs:duration.

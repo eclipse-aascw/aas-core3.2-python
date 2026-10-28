@@ -1,0 +1,2 @@
+.id_short: The value must not be empty.
+.id_short: AASd-002: ID-short of Referables shall consist of at least two characters and shall only feature letters, digits, hyphen (``-``) and underscore (``_``); starting mandatory with a letter, and not ending with a hyphen, *I.e.* ``^[a-zA-Z][a-zA-Z0-9_-]*[a-zA-Z0-9_]+$``.

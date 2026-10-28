@@ -1,0 +1,2 @@
+: Created-at must be before updated-at.
+.version: Version type shall have a maximum length of 4 characters.

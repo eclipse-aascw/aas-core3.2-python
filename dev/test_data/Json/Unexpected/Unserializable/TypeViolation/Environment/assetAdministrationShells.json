@@ -1,0 +1,15 @@
+{
+  "assetAdministrationShells": "Unexpected string value",
+  "submodels": [
+    {
+      "id": "0",
+      "modelType": "Submodel"
+    }
+  ],
+  "conceptDescriptions": [
+    {
+      "id": "0",
+      "modelType": "ConceptDescription"
+    }
+  ]
+}

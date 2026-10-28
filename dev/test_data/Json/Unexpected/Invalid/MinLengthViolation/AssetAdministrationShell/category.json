@@ -1,0 +1,122 @@
+{
+  "extensions": [
+    {
+      "name": "11\u00d5\u00d1\ud803\udee8\u00b4K\udbca\udf2de<\udb45\uddde\u00a8ngA"
+    },
+    {
+      "name": "6"
+    }
+  ],
+  "category": "",
+  "idShort": "a-_",
+  "displayName": [
+    {
+      "language": "en-JM-x-99426152",
+      "text": "[\\h$\ud90b\ude9f\u00ec\u00d6\u010b\u008a1\u00bf"
+    },
+    {
+      "language": "en-JM-x-431996fc",
+      "text": "<\u0103<P\udb63\udc7d\u00b2|dn\u009c\u00de\u00ae"
+    }
+  ],
+  "description": [
+    {
+      "language": "en-JM-x-7ca6ed73",
+      "text": "\u00db\u0103<P\udb63\udc7d\u00b2|dn\u009c\u00de\u00ae"
+    },
+    {
+      "language": "en-JM-x-588ccbcc",
+      "text": "\ud842\udd224\ud842\udd22"
+    }
+  ],
+  "administration": {},
+  "id": "0",
+  "embeddedDataSpecifications": [
+    {
+      "dataSpecification": {
+        "type": "ExternalReference",
+        "keys": [
+          {
+            "type": "GlobalReference",
+            "value": "urn:another-company:03:97fadb7b"
+          }
+        ]
+      },
+      "dataSpecificationContent": {
+        "preferredName": [
+          {
+            "language": "en-JM-x-87ce29ed",
+            "text": "J5"
+          },
+          {
+            "language": "en-JM-x-7c40ee17",
+            "text": "\u00db\u0103<P\udb63\udc7d\u00b2|dn\u009c\u00de\u00ae"
+          },
+          {
+            "language": "en-JM-x-f49c2ad1",
+            "text": "[\\h$\ud90b\ude9f\u00ec\u00d6\u010b\u008a1\u00bf"
+          }
+        ],
+        "modelType": "DataSpecificationIec61360"
+      }
+    },
+    {
+      "dataSpecification": {
+        "type": "ExternalReference",
+        "keys": [
+          {
+            "type": "GlobalReference",
+            "value": "urn:an-example:10:3fc193a2"
+          }
+        ]
+      },
+      "dataSpecificationContent": {
+        "preferredName": [
+          {
+            "language": "en-JM-x-e705ce52",
+            "text": "0"
+          },
+          {
+            "language": "en-JM-x-27e497c3",
+            "text": "[\\h$\ud90b\ude9f\u00ec\u00d6\u010b\u008a1\u00bf"
+          }
+        ],
+        "modelType": "DataSpecificationIec61360"
+      }
+    }
+  ],
+  "derivedFrom": {
+    "type": "ModelReference",
+    "keys": [
+      {
+        "type": "AssetAdministrationShell",
+        "value": "urn:some-company:05:3dfe70e9"
+      }
+    ]
+  },
+  "assetInformation": {
+    "assetKind": "NotApplicable",
+    "globalAssetId": "\u00f6\u0116a\udbf6\udce1\u0099|"
+  },
+  "submodels": [
+    {
+      "type": "ModelReference",
+      "keys": [
+        {
+          "type": "Submodel",
+          "value": "urn:some-company:10:b41a9a96"
+        }
+      ]
+    },
+    {
+      "type": "ModelReference",
+      "keys": [
+        {
+          "type": "Submodel",
+          "value": "urn:some-company:08:ebc5356c"
+        }
+      ]
+    }
+  ],
+  "modelType": "AssetAdministrationShell"
+}

@@ -1,0 +1,56 @@
+target-version = "py39"
+
+[lint]
+select = [
+    "ASYNC", "B", "C4", "DTZ", "E", "ERA", "EXE", "F", "FIX", "FLY", "FURB", "G",
+    "INT", "ISC", "LOG", "N", "PERF", "PGH", "PIE", "PLC", "PLE", "PLW", "PYI",
+    "RET", "RSE", "RUF", "SIM", "SLOT", "T10", "T20", "TC", "TD", "TID", "TRY",
+    "UP", "W", "YTT"
+]
+
+# NOTE (mristin):
+# We follow the configuration of the Python live tests in aas-core-codegen since
+# most of the code is generated. The default rule set of ruff includes many
+# stylistic rules, such as the PEP 585 annotations, which clash with the style
+# of the generated code. We select the rule families which point to bugs and code
+# smells instead.
+#
+# We ignore the rules which flag the code transpiled from the meta-model, such
+# as ``not (x in y)``, ``-(-x)`` or ``range(0, n)``, since the transpiled code
+# deliberately mirrors the meta-model. We also ignore the rules which go against
+# the style of the generated code, such as the version blocks for Python 3.7.
+ignore = [
+    # Transpiled from the meta-model
+    "B002", "E713", "FURB110", "ISC003", "PERF401", "PERF402", "PIE808",
+    "SIM102", "SIM103", "SIM108", "SIM110", "SIM114", "SIM201", "SIM202",
+    "SIM208", "SIM300", "UP034", "UP037",
+    # Text from the meta-model
+    "RUF001", "RUF002", "RUF003",
+    # Black joins the implicitly concatenated strings of the generated code
+    "ISC001",
+    # Generated for Python 3.8, which lacks ``str.removeprefix``
+    "FURB188",
+    # Style of the generated code
+    "E501", "N801", "N818", "PERF203", "RET503", "RET505", "TRY003",
+    "TRY004", "TRY300", "TRY301", "UP006", "UP035", "UP036",
+    # We concatenate the command lines, and black needs the formatter comments
+    # around the contracts.
+    "RUF005", "RUF028",
+]
+
+[lint.per-file-ignores]
+# NOTE (mristin):
+# The verification imports everything the transpiled verification functions
+# and the snippets might need, as we can not tell what the snippets use.
+# The JSON and XML de/serialization and the types import everything their
+# readers, writers, properties and methods might need, as which of them are
+# generated depends on the meta-model.
+"jsonization.py" = ["F401"]
+"types.py" = ["F401"]
+"verification.py" = ["F401"]
+"xmlization.py" = ["F401"]
+
+# NOTE (mristin):
+# The development scripts report their progress to the console.
+"dev/continuous_integration/*" = ["T201"]
+"dev/dev_scripts/*" = ["T201"]

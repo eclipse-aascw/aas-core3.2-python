@@ -1,0 +1,69 @@
+{
+  "extensions": [
+    {
+      "name": "11\u00d5\u00d1\ud803\udee8\u00b4K\udbca\udf2de<\udb45\uddde\u00a8ngA"
+    },
+    {
+      "name": "6"
+    }
+  ],
+  "category": "11\u00d5\u00d1\ud803\udee8\u00b4K\udbca\udf2de<\udb45\uddde\u00a8ngA",
+  "idShort": "a-_",
+  "displayName": [
+    {
+      "language": "en-JM-x-99426152",
+      "text": "[\\h$\ud90b\ude9f\u00ec\u00d6\u010b\u008a1\u00bf"
+    },
+    {
+      "language": "en-JM-x-431996fc",
+      "text": "<\u0103<P\udb63\udc7d\u00b2|dn\u009c\u00de\u00ae"
+    }
+  ],
+  "description": [
+    {
+      "language": "en-JM-x-7ca6ed73",
+      "text": "\u00db\u0103<P\udb63\udc7d\u00b2|dn\u009c\u00de\u00ae"
+    },
+    {
+      "language": "en-JM-x-588ccbcc",
+      "text": "\ud842\udd224\ud842\udd22"
+    }
+  ],
+  "administration": {},
+  "id": "0",
+  "embeddedDataSpecifications": [],
+  "derivedFrom": {
+    "type": "ModelReference",
+    "keys": [
+      {
+        "type": "AssetAdministrationShell",
+        "value": "urn:some-company:05:3dfe70e9"
+      }
+    ]
+  },
+  "assetInformation": {
+    "assetKind": "NotApplicable",
+    "globalAssetId": "\u00f6\u0116a\udbf6\udce1\u0099|"
+  },
+  "submodels": [
+    {
+      "type": "ModelReference",
+      "keys": [
+        {
+          "type": "Submodel",
+          "value": "urn:some-company:10:b41a9a96"
+        }
+      ]
+    },
+    {
+      "type": "ModelReference",
+      "keys": [
+        {
+          "type": "Submodel",
+          "value": "urn:some-company:08:ebc5356c"
+        }
+      ]
+    }
+  ],
+  "modelType": "AssetAdministrationShell"
+}
