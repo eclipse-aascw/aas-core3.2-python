@@ -2,12 +2,12 @@
 JSON De/serialization
 *********************
 
-Our SDK handles the de/serialization of the AAS models from and to JSON format through the module :py:mod:`aas_core3_1.jsonization`.
+Our SDK handles the de/serialization of the AAS models from and to JSON format through the module :py:mod:`aas_core3_2.jsonization`.
 
 Serialize
 =========
 
-To serialize, you call the function :py:func:`aas_core3.jsonization.to_jsonable` on an instance of :py:class:`aas_core3_1.types.Environment` which will convert it to a JSON-able mapping.
+To serialize, you call the function :py:func:`aas_core3_2.jsonization.to_jsonable` on an instance of :py:class:`aas_core3_2.types.Environment` which will convert it to a JSON-able mapping.
 
 Here is a snippet that converts the environment first into a JSON-able mapping, and next converts the JSON-able mapping to text:
 
@@ -15,8 +15,8 @@ Here is a snippet that converts the environment first into a JSON-able mapping, 
 
     import json
 
-    import aas_core3_1.types as aas_types
-    import aas_core3_1.jsonization as aas_jsonization
+    import aas_core3_2.types as aas_types
+    import aas_core3_2.jsonization as aas_jsonization
 
     # Prepare the environment
     environment = aas_types.Environment(
@@ -64,8 +64,8 @@ Expected output:
 De-serialize
 ============
 
-Our SDK can convert a JSON-able mapping back to an instance of :py:class:`aas_core3_1.types.Environment`.
-To that end, you call the function :py:func:`aas_core3_1.jsonization.environment_from_jsonable`.
+Our SDK can convert a JSON-able mapping back to an instance of :py:class:`aas_core3_2.types.Environment`.
+To that end, you call the function :py:func:`aas_core3_2.jsonization.environment_from_jsonable`.
 
 
 Here is an example snippet:
@@ -74,7 +74,7 @@ Here is an example snippet:
 
     import json
 
-    import aas_core3_1.jsonization as aas_jsonization
+    import aas_core3_2.jsonization as aas_jsonization
 
     text = """\
         {
@@ -106,12 +106,12 @@ Expected output:
 
 .. testoutput::
 
-    <class 'aas_core3_1.types.Submodel'>
-    <class 'aas_core3_1.types.Property'>
+    <class 'aas_core3_2.types.Submodel'>
+    <class 'aas_core3_2.types.Property'>
 
 Errors
 ======
 
-If there are any errors during the de-serialization, an :py:class:`aas_core3_1.jsonization.DeserializationException` will be thrown.
+If there are any errors during the de-serialization, an :py:class:`aas_core3_2.jsonization.DeserializationException` will be thrown.
 Errors occur whenever we encounter invalid JSON values.
 For example, this is the case when the de-serialization function expects a JSON object, but encounters a JSON array instead.

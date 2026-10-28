@@ -28,6 +28,7 @@ classifiers = [
 
 [project.urls]
 Homepage = "https://github.com/eclipse-aascw/aas-core3.2-python"
+Documentation = "https://eclipse-aascw.github.io/aas-core3.2-python/"
 Repository = "https://github.com/eclipse-aascw/aas-core3.2-python"
 Issues = "https://github.com/eclipse-aascw/aas-core3.2-python/issues"
 

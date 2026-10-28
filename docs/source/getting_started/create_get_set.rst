@@ -2,17 +2,17 @@
 Create, Get and Set Properties of an AAS Model
 **********************************************
 
-The module :py:mod:`aas_core3_1.types` contains all the data types of the meta-model.
+The module :py:mod:`aas_core3_2.types` contains all the data types of the meta-model.
 This includes enumerations, abstract and concrete classes.
 
-The module :py:mod:`aas_core3_1.types` also contains visitors and transformers, but we will write more about them in :ref:`iterate_and_transform` section.
+The module :py:mod:`aas_core3_2.types` also contains visitors and transformers, but we will write more about them in :ref:`iterate_and_transform` section.
 
 Creation
 ========
 
 We use constructors to create an AAS model.
 
-Usually you start bottom-up, all the way up to the :py:class:`aas_core3_1.types.Environment`.
+Usually you start bottom-up, all the way up to the :py:class:`aas_core3_2.types.Environment`.
 
 Getting and Setting Properties
 ==============================
@@ -28,7 +28,7 @@ For optional properties which come with a default value, we provide special gett
 If the property is ``None``, this getter will give you the default value.
 Otherwise, if the property is set, the actual value of the property will be returned.
 
-For example, see :py:meth:`aas_core3_1.types.HasKind.kind_or_default`.
+For example, see :py:meth:`aas_core3_2.types.HasKind.kind_or_default`.
 
 Example: Create an Environment with a Submodel
 ==============================================
@@ -39,7 +39,7 @@ The submodel will contain two elements, a property and a blob.
 
 .. doctest::
 
-    import aas_core3_1.types as aas_types
+    import aas_core3_2.types as aas_types
 
     # Create the first element
     some_element = aas_types.Property(

@@ -49,6 +49,11 @@ extensions = [
 
 autodoc_typehints = 'signature'
 
+# NOTE: The bare ``>>>`` blocks in the docstrings of the generated modules are
+# already doctest'ed in dev/continuous_integration/precommit.py with
+# the module namespace. Here we only test the explicit doctest directives.
+doctest_test_doctest_blocks = ''
+
 autodoc_default_options = {
     'members': True,
     'undoc-members': True,

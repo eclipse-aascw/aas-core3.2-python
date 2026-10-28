@@ -8,9 +8,9 @@ This is a software development kit (SDK) to:
 * verify, and
 * de/serialize to and from JSON and XML
 
-... Asset Administration Shells based on `the version 3.1 of the meta-model`_.
+... Asset Administration Shells based on `the version 3.2 of the meta-model`_.
 
-.. _the version 3.1 of the meta-model: https://industrialdigitaltwin.org/content-hub/aasspecifications
+.. _the version 3.2 of the meta-model: https://industrialdigitaltwin.org/content-hub/aasspecifications
 
 For a brief introduction, see :doc:`Getting Started <getting_started/index>`.
 
