@@ -1,0 +1,2 @@
+.id_short: Constraint AASd-130: An attribute with data type 'string' shall consist of these characters only: ^[\x09\x0A\x0D\x20-\uD7FF\uE000-\uFFFD\U00010000-\U0010FFFF]*$.
+.id_short: AASd-002: ID-short of Referables shall consist of at least two characters and shall only feature letters, digits, hyphen (``-``) and underscore (``_``); starting mandatory with a letter, and not ending with a hyphen, *I.e.* ``^[a-zA-Z][a-zA-Z0-9_-]*[a-zA-Z0-9_]+$``.

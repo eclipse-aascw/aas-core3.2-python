@@ -1,0 +1,8 @@
+<assetAdministrationShell xmlns="https://admin-shell.io/aas/3/2">
+  <idShort>a-b</idShort>
+  <id>0</id>
+  <assetInformation>
+    <assetKind>Batch</assetKind>
+    <globalAssetId>6</globalAssetId>
+  </assetInformation>
+</assetAdministrationShell>

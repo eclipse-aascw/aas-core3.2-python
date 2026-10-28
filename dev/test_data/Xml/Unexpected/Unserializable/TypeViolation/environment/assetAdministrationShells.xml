@@ -1,0 +1,13 @@
+<environment xmlns="https://admin-shell.io/aas/3/2">
+  <assetAdministrationShells>Unexpected string value</assetAdministrationShells>
+  <submodels>
+    <submodel>
+      <id>0</id>
+    </submodel>
+  </submodels>
+  <conceptDescriptions>
+    <conceptDescription>
+      <id>0</id>
+    </conceptDescription>
+  </conceptDescriptions>
+</environment>

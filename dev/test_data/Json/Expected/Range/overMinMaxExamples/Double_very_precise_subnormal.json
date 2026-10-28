@@ -1,0 +1,6 @@
+{
+  "valueType": "xs:double",
+  "min": "2e-307",
+  "max": "2e-307",
+  "modelType": "Range"
+}

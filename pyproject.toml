@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aas-core3.2"
+# Synchronize with __init__.py and changelog.rst!
+version = "1.0.0rc1"
+description = "Manipulate, verify and de/serialize Asset Administration Shells v3.2."
+readme = { file = "README.rst", content-type = "text/x-rst" }
+requires-python = ">=3.9"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [
+  { name = "Marko Ristin", email = "marko@ristin.ch" },
+  { name = "Tobias Langer", email = "tobias.langer@conplement.de" },
+]
+keywords = ["asset administration shell", "sdk", "industry 4.0", "industrie", "i4.0", "industry", "iot", "iiot"]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Typing :: Typed"
+]
+
+[project.urls]
+Homepage = "https://github.com/eclipse-aascw/aas-core3.2-python"
+Repository = "https://github.com/eclipse-aascw/aas-core3.2-python"
+Issues = "https://github.com/eclipse-aascw/aas-core3.2-python/issues"
+
+[tool.setuptools.packages.find]
+include = ["aas_core3_2"]
+exclude = ["dev"]
+
+[tool.setuptools.package-data]
+"aas_core3_2" = ["py.typed"]

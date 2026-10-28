@@ -1,0 +1,47 @@
+{
+  "extensions": [
+    {
+      "name": "11\u00d5\u00d1\ud803\udee8\u00b4K\udbca\udf2de<\udb45\uddde\u00a8ngA"
+    },
+    {
+      "name": "6"
+    }
+  ],
+  "category": "11\u00d5\u00d1\ud803\udee8\u00b4K\udbca\udf2de<\udb45\uddde\u00a8ngA",
+  "idShort": "a-_",
+  "displayName": [
+    {
+      "language": "en-JM-x-99426152",
+      "text": "[\\h$\ud90b\ude9f\u00ec\u00d6\u010b\u008a1\u00bf"
+    },
+    {
+      "language": "en-JM-x-431996fc",
+      "text": "<\u0103<P\udb63\udc7d\u00b2|dn\u009c\u00de\u00ae"
+    }
+  ],
+  "description": [
+    {
+      "language": "en-JM-x-7ca6ed73",
+      "text": "\u00db\u0103<P\udb63\udc7d\u00b2|dn\u009c\u00de\u00ae"
+    },
+    {
+      "language": "en-JM-x-588ccbcc",
+      "text": "\ud842\udd224\ud842\udd22"
+    }
+  ],
+  "administration": {},
+  "id": "0",
+  "embeddedDataSpecifications": "Unexpected string value",
+  "isCaseOf": [
+    {
+      "type": "ExternalReference",
+      "keys": [
+        {
+          "type": "GlobalReference",
+          "value": "urn:another-company:06:66cbf3c6"
+        }
+      ]
+    }
+  ],
+  "modelType": "ConceptDescription"
+}

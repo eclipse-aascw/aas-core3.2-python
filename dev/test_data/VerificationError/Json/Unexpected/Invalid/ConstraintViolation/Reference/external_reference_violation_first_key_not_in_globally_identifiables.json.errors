@@ -1,0 +1,4 @@
+: Constraint AASd-121: For References the value of type of the first key of keys shall be one of Globally Identifiables.
+: Constraint AASd-122: For external references the value of type of the first key of keys shall be one of Generic Globally Identifiables.
+: Constraint AASd-137: For external references, i.e. References with Reference/type = ExternalReference, the value of Key/type of any key in Reference/keys shall not be one of AAS referables.
+: Constraint AASd-124: For external references the last key of keys shall be either one of Generic Globally Identifiables or one of Generic Fragment Keys.

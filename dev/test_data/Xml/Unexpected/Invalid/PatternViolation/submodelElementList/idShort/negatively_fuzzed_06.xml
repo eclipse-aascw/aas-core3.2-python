@@ -1,0 +1,4 @@
+<submodelElementList xmlns="https://admin-shell.io/aas/3/2">
+  <idShort>@</idShort>
+  <typeValueListElement>BasicEventElement</typeValueListElement>
+</submodelElementList>

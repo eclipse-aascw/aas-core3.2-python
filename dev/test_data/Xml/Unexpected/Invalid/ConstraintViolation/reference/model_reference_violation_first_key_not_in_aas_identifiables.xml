@@ -1,0 +1,9 @@
+<reference xmlns="https://admin-shell.io/aas/3/2">
+  <type>ModelReference</type>
+  <keys>
+    <key>
+      <type>GlobalReference</type>
+      <value>https://example.com/something</value>
+    </key>
+  </keys>
+</reference>

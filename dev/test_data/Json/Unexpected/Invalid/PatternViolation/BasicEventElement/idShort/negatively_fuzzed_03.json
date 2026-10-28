@@ -1,0 +1,19 @@
+{
+  "idShort": "66a\u0007 $\u0005\u0098V\u98b5<8f\udaf9\udc16\u0088;\u00c9\u00d02\u00fe\udae2\udce77y",
+  "observed": {
+    "type": "ModelReference",
+    "keys": [
+      {
+        "type": "Submodel",
+        "value": "urn:yet-another-company:02:3262900a"
+      },
+      {
+        "type": "Property",
+        "value": "something0e5ec53f"
+      }
+    ]
+  },
+  "direction": "input",
+  "state": "on",
+  "modelType": "BasicEventElement"
+}

@@ -1,0 +1,2 @@
+: Description must be either not set or have at least one item.
+: Constraint AASd-138: A submodel element list within a submodel of kind Template or as part of an operation variable shall have exactly one element.

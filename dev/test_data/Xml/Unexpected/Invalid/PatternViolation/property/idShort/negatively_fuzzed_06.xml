@@ -1,0 +1,4 @@
+<property xmlns="https://admin-shell.io/aas/3/2">
+  <idShort>@</idShort>
+  <valueType>xs:gDay</valueType>
+</property>

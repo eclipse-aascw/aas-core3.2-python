@@ -1,0 +1,2 @@
+: Constraint AASd-005: If version is not specified, revision shall also be unspecified. This means that a revision requires a version. If there is no version, there is no revision. Revision is optional.
+.revision: Revision type shall match the revision pattern.
