@@ -1,3 +1,2 @@
-: Created-at must be before updated-at.
 .revision: The value must not be empty.
 .revision: Revision type shall match the revision pattern.

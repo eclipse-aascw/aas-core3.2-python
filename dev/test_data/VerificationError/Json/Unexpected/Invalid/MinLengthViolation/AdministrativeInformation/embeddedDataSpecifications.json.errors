@@ -1,2 +1,1 @@
 : Embedded data specifications must be either not set or have at least one item.
-: Created-at must be before updated-at.

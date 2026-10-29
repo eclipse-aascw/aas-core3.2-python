@@ -310,7 +310,7 @@ class TestRoundTrips(unittest.TestCase):
             self.assertEqual(enum_literal.value, jsonable)
 
     def test_level(self) -> None:
-        for jsonable in ["Deep", "Core"]:
+        for jsonable in ["deep", "core"]:
             enum_literal = our_jsonization.level_from_jsonable(jsonable)
 
             self.assertEqual(enum_literal.value, jsonable)
@@ -322,7 +322,7 @@ class TestRoundTrips(unittest.TestCase):
             self.assertEqual(enum_literal.value, jsonable)
 
     def test_extent(self) -> None:
-        for jsonable in ["WithoutBLOBValue", "WithBLOBValue"]:
+        for jsonable in ["withoutBlobValue", "withBlobValue"]:
             enum_literal = our_jsonization.extent_from_jsonable(jsonable)
 
             self.assertEqual(enum_literal.value, jsonable)

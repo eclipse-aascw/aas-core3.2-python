@@ -572,8 +572,8 @@ def execution_state_from_str(text: str) -> Optional[our_types.ExecutionState]:
 
 
 _LEVEL_FROM_STR: Mapping[str, our_types.Level] = {
-    "Deep": our_types.Level.DEEP,
-    "Core": our_types.Level.CORE,
+    "deep": our_types.Level.DEEP,
+    "core": our_types.Level.CORE,
 }
 
 
@@ -619,8 +619,8 @@ def content_from_str(text: str) -> Optional[our_types.Content]:
 
 
 _EXTENT_FROM_STR: Mapping[str, our_types.Extent] = {
-    "WithoutBLOBValue": our_types.Extent.WITHOUT_BLOB_VALUE,
-    "WithBLOBValue": our_types.Extent.WITH_BLOB_VALUE,
+    "withoutBlobValue": our_types.Extent.WITHOUT_BLOB_VALUE,
+    "withBlobValue": our_types.Extent.WITH_BLOB_VALUE,
 }
 
 
