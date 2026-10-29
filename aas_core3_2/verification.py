@@ -6465,15 +6465,6 @@ class _Transformer(our_types.AbstractTransformer[Iterator[Error]]):
         self, that: our_types.ProtocolInformation
     ) -> Iterator[Error]:
         if not (
-            not (that.endpoint_protocol_version is not None)
-            or (len(that.endpoint_protocol_version) >= 1)
-        ):
-            yield Error(
-                "Endpoint protocol versions must be either not set or have "
-                + "at least one item."
-            )
-
-        if not (
             not (that.security_attributes is not None)
             or (len(that.security_attributes) >= 1)
         ):
@@ -6641,9 +6632,6 @@ class _Transformer(our_types.AbstractTransformer[Iterator[Error]]):
 
     # noinspection PyMethodMayBeStatic
     def transform_result(self, that: our_types.Result) -> Iterator[Error]:
-        if not (not (that.messages is not None) or (len(that.messages) >= 1)):
-            yield Error("Messages must be either not set or have at least one item.")
-
         if that.messages is not None:
             for error in _verify_list_of__class(that.messages):
                 error.path._prepend(PropertySegment(that, "messages"))
@@ -6824,9 +6812,6 @@ class _Transformer(our_types.AbstractTransformer[Iterator[Error]]):
     def transform_base_operation_result(
         self, that: our_types.BaseOperationResult
     ) -> Iterator[Error]:
-        if not (not (that.messages is not None) or (len(that.messages) >= 1)):
-            yield Error("Messages must be either not set or have at least one item.")
-
         if that.messages is not None:
             for error in _verify_list_of__class(that.messages):
                 error.path._prepend(PropertySegment(that, "messages"))
@@ -6853,9 +6838,6 @@ class _Transformer(our_types.AbstractTransformer[Iterator[Error]]):
                 + "one item."
             )
 
-        if not (not (that.messages is not None) or (len(that.messages) >= 1)):
-            yield Error("Messages must be either not set or have at least one item.")
-
         if that.messages is not None:
             for error in _verify_list_of__class(that.messages):
                 error.path._prepend(PropertySegment(that, "messages"))
@@ -6875,9 +6857,6 @@ class _Transformer(our_types.AbstractTransformer[Iterator[Error]]):
     def transform_operation_result_value_only(
         self, that: our_types.OperationResultValueOnly
     ) -> Iterator[Error]:
-        if not (not (that.messages is not None) or (len(that.messages) >= 1)):
-            yield Error("Messages must be either not set or have at least one item.")
-
         if that.messages is not None:
             for error in _verify_list_of__class(that.messages):
                 error.path._prepend(PropertySegment(that, "messages"))
@@ -6927,9 +6906,6 @@ class _Transformer(our_types.AbstractTransformer[Iterator[Error]]):
 
     # noinspection PyMethodMayBeStatic
     def transform_paged_result(self, that: our_types.PagedResult) -> Iterator[Error]:
-        if not (not (that.result is not None) or (len(that.result) >= 1)):
-            yield Error("Result must be either not set or have at least one item.")
-
         if that.result is not None:
             for error in _verify_list_of__class(that.result):
                 error.path._prepend(PropertySegment(that, "result"))
@@ -6954,9 +6930,6 @@ class _Transformer(our_types.AbstractTransformer[Iterator[Error]]):
     def transform_package_description(
         self, that: our_types.PackageDescription
     ) -> Iterator[Error]:
-        if not (not (that.aas_ids is not None) or (len(that.aas_ids) >= 1)):
-            yield Error("AAS IDs must be either not set or have at least one item.")
-
         for error in verify_short_id_type(that.package_id):
             error.path._prepend(PropertySegment(that, "package_id"))
             yield error
@@ -9118,9 +9091,6 @@ class _Transformer(our_types.AbstractTransformer[Iterator[Error]]):
     def transform_get_asset_administration_shells_result(
         self, that: our_types.GetAssetAdministrationShellsResult
     ) -> Iterator[Error]:
-        if not (not (that.result is not None) or (len(that.result) >= 1)):
-            yield Error("Result must be either not set or have at least one item.")
-
         for error in verify(that.paging_metadata):
             error.path._prepend(PropertySegment(that, "paging_metadata"))
             yield error
@@ -9134,9 +9104,6 @@ class _Transformer(our_types.AbstractTransformer[Iterator[Error]]):
     def transform_get_asset_administration_shells_metadata_result(
         self, that: our_types.GetAssetAdministrationShellsMetadataResult
     ) -> Iterator[Error]:
-        if not (not (that.result is not None) or (len(that.result) >= 1)):
-            yield Error("Result must be either not set or have at least one item.")
-
         for error in verify(that.paging_metadata):
             error.path._prepend(PropertySegment(that, "paging_metadata"))
             yield error
@@ -9150,9 +9117,6 @@ class _Transformer(our_types.AbstractTransformer[Iterator[Error]]):
     def transform_get_all_asset_administration_shells_recent_changes_result(
         self, that: our_types.GetAllAssetAdministrationShellsRecentChangesResult
     ) -> Iterator[Error]:
-        if not (not (that.result is not None) or (len(that.result) >= 1)):
-            yield Error("Result must be either not set or have at least one item.")
-
         for error in verify(that.paging_metadata):
             error.path._prepend(PropertySegment(that, "paging_metadata"))
             yield error
@@ -9166,9 +9130,6 @@ class _Transformer(our_types.AbstractTransformer[Iterator[Error]]):
     def transform_get_asset_administration_shell_descriptors_result(
         self, that: our_types.GetAssetAdministrationShellDescriptorsResult
     ) -> Iterator[Error]:
-        if not (not (that.result is not None) or (len(that.result) >= 1)):
-            yield Error("Result must be either not set or have at least one item.")
-
         for error in verify(that.paging_metadata):
             error.path._prepend(PropertySegment(that, "paging_metadata"))
             yield error
@@ -9182,9 +9143,6 @@ class _Transformer(our_types.AbstractTransformer[Iterator[Error]]):
     def transform_get_concept_descriptions_result(
         self, that: our_types.GetConceptDescriptionsResult
     ) -> Iterator[Error]:
-        if not (not (that.result is not None) or (len(that.result) >= 1)):
-            yield Error("Result must be either not set or have at least one item.")
-
         for error in verify(that.paging_metadata):
             error.path._prepend(PropertySegment(that, "paging_metadata"))
             yield error
@@ -9198,9 +9156,6 @@ class _Transformer(our_types.AbstractTransformer[Iterator[Error]]):
     def transform_get_all_concept_descriptions_recent_changes_result(
         self, that: our_types.GetAllConceptDescriptionsRecentChangesResult
     ) -> Iterator[Error]:
-        if not (not (that.result is not None) or (len(that.result) >= 1)):
-            yield Error("Result must be either not set or have at least one item.")
-
         for error in verify(that.paging_metadata):
             error.path._prepend(PropertySegment(that, "paging_metadata"))
             yield error
@@ -9214,9 +9169,6 @@ class _Transformer(our_types.AbstractTransformer[Iterator[Error]]):
     def transform_get_package_descriptions_result(
         self, that: our_types.GetPackageDescriptionsResult
     ) -> Iterator[Error]:
-        if not (not (that.result is not None) or (len(that.result) >= 1)):
-            yield Error("Result must be either not set or have at least one item.")
-
         for error in verify(that.paging_metadata):
             error.path._prepend(PropertySegment(that, "paging_metadata"))
             yield error
@@ -9230,9 +9182,6 @@ class _Transformer(our_types.AbstractTransformer[Iterator[Error]]):
     def transform_get_path_items_result(
         self, that: our_types.GetPathItemsResult
     ) -> Iterator[Error]:
-        if not (not (that.result is not None) or (len(that.result) >= 1)):
-            yield Error("Result must be either not set or have at least one item.")
-
         for error in verify(that.paging_metadata):
             error.path._prepend(PropertySegment(that, "paging_metadata"))
             yield error
@@ -9246,9 +9195,6 @@ class _Transformer(our_types.AbstractTransformer[Iterator[Error]]):
     def transform_get_references_result(
         self, that: our_types.GetReferencesResult
     ) -> Iterator[Error]:
-        if not (not (that.result is not None) or (len(that.result) >= 1)):
-            yield Error("Result must be either not set or have at least one item.")
-
         for error in verify(that.paging_metadata):
             error.path._prepend(PropertySegment(that, "paging_metadata"))
             yield error
@@ -9262,9 +9208,6 @@ class _Transformer(our_types.AbstractTransformer[Iterator[Error]]):
     def transform_get_submodel_descriptors_result(
         self, that: our_types.GetSubmodelDescriptorsResult
     ) -> Iterator[Error]:
-        if not (not (that.result is not None) or (len(that.result) >= 1)):
-            yield Error("Result must be either not set or have at least one item.")
-
         for error in verify(that.paging_metadata):
             error.path._prepend(PropertySegment(that, "paging_metadata"))
             yield error
@@ -9278,9 +9221,6 @@ class _Transformer(our_types.AbstractTransformer[Iterator[Error]]):
     def transform_get_submodel_elements_metadata_result(
         self, that: our_types.GetSubmodelElementsMetadataResult
     ) -> Iterator[Error]:
-        if not (not (that.result is not None) or (len(that.result) >= 1)):
-            yield Error("Result must be either not set or have at least one item.")
-
         for error in verify(that.paging_metadata):
             error.path._prepend(PropertySegment(that, "paging_metadata"))
             yield error
@@ -9304,9 +9244,6 @@ class _Transformer(our_types.AbstractTransformer[Iterator[Error]]):
                 + "Referables not being a direct child of a Submodel element "
                 + "list shall be specified)."
             )
-
-        if not (not (that.result is not None) or (len(that.result) >= 1)):
-            yield Error("Result must be either not set or have at least one item.")
 
         for error in verify(that.paging_metadata):
             error.path._prepend(PropertySegment(that, "paging_metadata"))
@@ -9344,9 +9281,6 @@ class _Transformer(our_types.AbstractTransformer[Iterator[Error]]):
     def transform_get_all_submodels_recent_changes_result(
         self, that: our_types.GetAllSubmodelsRecentChangesResult
     ) -> Iterator[Error]:
-        if not (not (that.result is not None) or (len(that.result) >= 1)):
-            yield Error("Result must be either not set or have at least one item.")
-
         for error in verify(that.paging_metadata):
             error.path._prepend(PropertySegment(that, "paging_metadata"))
             yield error
@@ -9360,9 +9294,6 @@ class _Transformer(our_types.AbstractTransformer[Iterator[Error]]):
     def transform_get_submodels_metadata_result(
         self, that: our_types.GetSubmodelsMetadataResult
     ) -> Iterator[Error]:
-        if not (not (that.result is not None) or (len(that.result) >= 1)):
-            yield Error("Result must be either not set or have at least one item.")
-
         for error in verify(that.paging_metadata):
             error.path._prepend(PropertySegment(that, "paging_metadata"))
             yield error
@@ -9376,9 +9307,6 @@ class _Transformer(our_types.AbstractTransformer[Iterator[Error]]):
     def transform_get_submodels_result(
         self, that: our_types.GetSubmodelsResult
     ) -> Iterator[Error]:
-        if not (not (that.result is not None) or (len(that.result) >= 1)):
-            yield Error("Result must be either not set or have at least one item.")
-
         for error in verify(that.paging_metadata):
             error.path._prepend(PropertySegment(that, "paging_metadata"))
             yield error
@@ -9731,9 +9659,6 @@ class _Transformer(our_types.AbstractTransformer[Iterator[Error]]):
 
     # noinspection PyMethodMayBeStatic
     def transform_query(self, that: our_types.Query) -> Iterator[Error]:
-        if not (not (that.filters is not None) or (len(that.filters) >= 1)):
-            yield Error("Filters must be either not set or have at least one item.")
-
         for error in verify(that.condition):
             error.path._prepend(PropertySegment(that, "condition"))
             yield error
