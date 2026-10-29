@@ -744,25 +744,28 @@ def date_time_utc_less(that: str, other: str) -> Optional[bool]:
     return less
 
 
-def date_time_utc_less_or_invalid(that: str, other: str) -> bool:
+def date_time_utc_less_or_equal_or_invalid(that: str, other: str) -> bool:
     """
-    Check that the date-time :paramref:`that` is before :paramref:`other`, unless
-    either of them is invalid.
+    Check that the date-time :paramref:`that` is before or at the same instant as
+    :paramref:`other`, unless either of them is invalid.
 
     The invalid date-times are reported by the invariants of
     ``DateTimeUTC``, so that we do not report them twice.
     See :py:func:`date_time_utc_less`.
 
-    :param that: Date-time which is expected to come first
-    :param other: Date-time which is expected to come later
+    :param that:
+        Date-time which is expected to come first or at the same instant
+    :param other:
+        Date-time which is expected to come later or at the same instant
     :return:
-        True if :paramref:`that` is before :paramref:`other`, or if either of
-        them is not a valid ``xs:dateTime`` in UTC
+        True if :paramref:`that` is before or at the same instant as
+        :paramref:`other`, or if either of them is not a valid ``xs:dateTime``
+        in UTC
     """
-    less = date_time_utc_less(that, other)
-    if less is None:
+    other_less = date_time_utc_less(other, that)
+    if other_less is None:
         return True
-    return less
+    return not other_less
 
 
 # noinspection SpellCheckingInspection
@@ -2692,9 +2695,9 @@ class _Transformer(our_types.AbstractTransformer[Iterator[Error]]):
 
         if not (
             not (((that.created_at is not None) and (that.updated_at is not None)))
-            or date_time_utc_less_or_invalid(that.created_at, that.updated_at)
+            or date_time_utc_less_or_equal_or_invalid(that.created_at, that.updated_at)
         ):
-            yield Error("Created-at must be before updated-at.")
+            yield Error("Created-at must be before or equal to updated-at.")
 
         if not (not (that.revision is not None) or (that.version is not None)):
             yield Error(

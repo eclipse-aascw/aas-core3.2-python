@@ -8922,6 +8922,13 @@ class Level(enum.Enum):
 
     See:
     https://industrialdigitaltwin.io/aas-specifications/IDTA-01002/v3.2/specification/interfaces-operation-parameters.html#SerializationModifier
+
+    .. note::
+
+        We follow the spelling of the literals in the Part 2 OpenAPI schema
+        (Part2-API-Schemas/openapi.yaml), ``deep`` and ``core``, rather than
+        the spelling in the book prose, since the servers, such as BaSyx, accept
+        only the former.
     """
 
     #: All elements of a requested hierarchy level and all children on all
@@ -8932,11 +8939,11 @@ class Level(enum.Enum):
     #: SubmodelElementCollections or SubmodelElementLists, the 'statements'
     #: field of Entities, or the 'annotations' field of
     #: AnnotatedRelationshipElements.
-    DEEP = "Deep"
+    DEEP = "deep"
 
     #: Only elements of a requested hierarchy level as well as direct children
     #: are returned. By this, a client can iterate the hierarchy step by step.
-    CORE = "Core"
+    CORE = "core"
 
 
 class Content(enum.Enum):
@@ -8976,16 +8983,24 @@ class Extent(enum.Enum):
 
     See:
     https://industrialdigitaltwin.io/aas-specifications/IDTA-01002/v3.2/specification/interfaces-operation-parameters.html#SerializationModifier
+
+    .. note::
+
+        We follow the spelling of the literals in the Part 2 OpenAPI schema
+        (Part2-API-Schemas/openapi.yaml), ``withoutBlobValue`` and
+        ``withBlobValue``, rather than the spelling in the book prose, such as
+        ``WithBLOBValue``, since the servers, such as BaSyx, accept only
+        the former.
     """
 
     #: Only applicable to BLOB-elements; the BLOB content is not returned.
     #:
     #: This is the default value.
-    WITHOUT_BLOB_VALUE = "WithoutBLOBValue"
+    WITHOUT_BLOB_VALUE = "withoutBlobValue"
 
     #: Only applicable to BLOB-elements; the BLOB content is returned as
     #: base64-encoded string.
-    WITH_BLOB_VALUE = "WithBLOBValue"
+    WITH_BLOB_VALUE = "withBlobValue"
 
 
 class PagedResult(Class):

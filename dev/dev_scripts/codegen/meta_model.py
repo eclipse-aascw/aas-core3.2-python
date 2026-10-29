@@ -1,4 +1,4 @@
-# Downloaded from: https://raw.githubusercontent.com/eclipse-aascw/aas-core-meta/63cbfd368a915a6696c6dec5b455dd5430ba652a/aas_core_meta/v3_2.py
+# Downloaded from: https://raw.githubusercontent.com/eclipse-aascw/aas-core-meta/c5f6c49c227bc199980924e6a5c42d3632ea7051/aas_core_meta/v3_2.py
 """
 --- WORK IN PROGRESS ---
 Provide an implementation of the Asset Administration Shell (AAS) V3.2.
@@ -814,26 +814,30 @@ def date_time_UTC_less(that: str, other: str) -> Optional[bool]:
 
 
 @verification
-def date_time_UTC_less_or_invalid(that: str, other: str) -> bool:
+def date_time_UTC_less_or_equal_or_invalid(that: str, other: str) -> bool:
     """
-    Check that the date-time :paramref:`that` is before :paramref:`other`, unless
-    either of them is invalid.
+    Check that the date-time :paramref:`that` is before or at the same instant as
+    :paramref:`other`, unless either of them is invalid.
 
     The invalid date-times are reported by the invariants of
     :class:`Date_time_UTC`, so that we do not report them twice.
     See :func:`date_time_UTC_less`.
 
-    :param that: Date-time which is expected to come first
-    :param other: Date-time which is expected to come later
+    :param that: Date-time which is expected to come first or at the same instant
+    :param other: Date-time which is expected to come later or at the same instant
     :returns:
-        True if :paramref:`that` is before :paramref:`other`, or if either of
-        them is not a valid ``xs:dateTime`` in UTC
+        True if :paramref:`that` is before or at the same instant as
+        :paramref:`other`, or if either of them is not a valid ``xs:dateTime``
+        in UTC
     """
-    less = date_time_UTC_less(that, other)
-    if less is None:
+    # NOTE (mristin):
+    # The date-time :paramref:`that` is before or at the same instant as
+    # :paramref:`other` if and only if :paramref:`other` is not before it.
+    other_less = date_time_UTC_less(other, that)
+    if other_less is None:
         return True
 
-    return less
+    return not other_less
 
 
 # noinspection SpellCheckingInspection
@@ -2715,8 +2719,8 @@ class Has_data_specification(DBC):
 @invariant(
     lambda self:
     not (self.created_at is not None and self.updated_at is not None)
-    or date_time_UTC_less_or_invalid(self.created_at, self.updated_at),
-    "Created-at must be before updated-at."
+    or date_time_UTC_less_or_equal_or_invalid(self.created_at, self.updated_at),
+    "Created-at must be before or equal to updated-at."
 )
 # fmt: on
 class Administrative_information(Has_data_specification):
@@ -8899,9 +8903,16 @@ class Level(Enum):
 
     See:
     https://industrialdigitaltwin.io/aas-specifications/IDTA-01002/v3.2/specification/interfaces-operation-parameters.html#SerializationModifier
+
+    .. note::
+
+        We follow the spelling of the literals in the Part 2 OpenAPI schema
+        (Part2-API-Schemas/openapi.yaml), ``deep`` and ``core``, rather than
+        the spelling in the book prose, since the servers, such as BaSyx, accept
+        only the former.
     """
 
-    Deep = "Deep"
+    Deep = "deep"
     """
     All elements of a requested hierarchy level and all children on all
     sublevels are returned.
@@ -8913,7 +8924,7 @@ class Level(Enum):
     AnnotatedRelationshipElements.
     """
 
-    Core = "Core"
+    Core = "core"
     """
     Only elements of a requested hierarchy level as well as direct children
     are returned. By this, a client can iterate the hierarchy step by step.
@@ -8965,16 +8976,24 @@ class Extent(Enum):
 
     See:
     https://industrialdigitaltwin.io/aas-specifications/IDTA-01002/v3.2/specification/interfaces-operation-parameters.html#SerializationModifier
+
+    .. note::
+
+        We follow the spelling of the literals in the Part 2 OpenAPI schema
+        (Part2-API-Schemas/openapi.yaml), ``withoutBlobValue`` and
+        ``withBlobValue``, rather than the spelling in the book prose, such as
+        ``WithBLOBValue``, since the servers, such as BaSyx, accept only
+        the former.
     """
 
-    Without_blob_value = "WithoutBLOBValue"
+    Without_blob_value = "withoutBlobValue"
     """
     Only applicable to BLOB-elements; the BLOB content is not returned.
 
     This is the default value.
     """
 
-    With_blob_value = "WithBLOBValue"
+    With_blob_value = "withBlobValue"
     """
     Only applicable to BLOB-elements; the BLOB content is returned as
     base64-encoded string.
@@ -12291,4 +12310,4 @@ Logical_expression = Union[
 
 # endregion Part 2
 
-# Downloaded from: https://raw.githubusercontent.com/eclipse-aascw/aas-core-meta/63cbfd368a915a6696c6dec5b455dd5430ba652a/aas_core_meta/v3_2.py
+# Downloaded from: https://raw.githubusercontent.com/eclipse-aascw/aas-core-meta/c5f6c49c227bc199980924e6a5c42d3632ea7051/aas_core_meta/v3_2.py

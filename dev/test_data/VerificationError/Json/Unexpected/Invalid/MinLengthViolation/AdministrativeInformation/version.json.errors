@@ -1,3 +1,2 @@
-: Created-at must be before updated-at.
 .version: The value must not be empty.
 .version: Version type shall match the version pattern.
