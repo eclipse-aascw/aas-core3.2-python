@@ -1,4 +1,4 @@
-# Downloaded from: https://raw.githubusercontent.com/eclipse-aascw/aas-core-meta/2244c160abe5409a5171342e21a8d7f1cdd6f9c8/aas_core_meta/v3_2.py
+# Downloaded from: https://raw.githubusercontent.com/eclipse-aascw/aas-core-meta/63cbfd368a915a6696c6dec5b455dd5430ba652a/aas_core_meta/v3_2.py
 """
 --- WORK IN PROGRESS ---
 Provide an implementation of the Asset Administration Shell (AAS) V3.2.
@@ -7228,12 +7228,6 @@ class Endpoint(DBC):
     or len(self.security_attributes) >= 1,
     "Security attributes must be either not set or have at least one item."
 )
-@invariant(
-    lambda self:
-    not (self.endpoint_protocol_version is not None)
-    or len(self.endpoint_protocol_version) >= 1,
-    "Endpoint protocol versions must be either not set or have at least one item."
-)
 # fmt: on
 class Protocol_information(DBC):
     """
@@ -8411,14 +8405,6 @@ class Status_code(Enum):
     """Bad gateway"""
 
 
-# fmt: off
-@invariant(
-    lambda self:
-    not (self.messages is not None)
-    or len(self.messages) >= 1,
-    "Messages must be either not set or have at least one item."
-)
-# fmt: on
 class Result(DBC):
     """
     The result object.
@@ -8702,14 +8688,6 @@ class Operation_request_async_value_only(DBC):
         self.inoutput_arguments = inoutput_arguments
 
 
-# fmt: off
-@invariant(
-    lambda self:
-    not (self.messages is not None)
-    or len(self.messages) >= 1,
-    "Messages must be either not set or have at least one item."
-)
-# fmt: on
 class Base_operation_result(DBC):
     """
     The object containing the intermediate state of an operation.
@@ -8754,12 +8732,6 @@ class Base_operation_result(DBC):
 
 
 # fmt: off
-@invariant(
-    lambda self:
-    not (self.messages is not None)
-    or len(self.messages) >= 1,
-    "Messages must be either not set or have at least one item."
-)
 @invariant(
     lambda self:
     not (self.output_arguments is not None)
@@ -8819,14 +8791,6 @@ class Operation_result(DBC):
         self.inoutput_arguments = inoutput_arguments
 
 
-# fmt: off
-@invariant(
-    lambda self:
-    not (self.messages is not None)
-    or len(self.messages) >= 1,
-    "Messages must be either not set or have at least one item."
-)
-# fmt: on
 class Operation_result_value_only(DBC):
     """
     The operation's invocation result object in the ValueOnly notation.
@@ -9023,14 +8987,6 @@ class Extent(Enum):
 # region HTTP/REST API
 
 
-# fmt: off
-@invariant(
-    lambda self:
-    not (self.result is not None)
-    or len(self.result) >= 1,
-    "Result must be either not set or have at least one item."
-)
-# fmt: on
 class Paged_result(DBC):
     """
     An object connecting the actual list of returned items with metadata
@@ -9084,14 +9040,6 @@ class Paging_metadata(DBC):
         self.cursor = cursor
 
 
-# fmt: off
-@invariant(
-    lambda self:
-    not (self.AAS_IDs is not None)
-    or len(self.AAS_IDs) >= 1,
-    "AAS IDs must be either not set or have at least one item."
-)
-# fmt: on
 class Package_description(DBC):
     """
     The package description consists of a system-wide unique packageId and
@@ -10374,14 +10322,6 @@ class Entity_value(DBC):
 # https://industrialdigitaltwin.io/aas-specifications/IDTA-01002/v3.2/http-rest-api/http-rest-api.html#pagination
 
 
-# fmt: off
-@invariant(
-    lambda self:
-    not (self.result is not None)
-    or len(self.result) >= 1,
-    "Result must be either not set or have at least one item."
-)
-# fmt: on
 class Get_asset_administration_shells_result(DBC):
     """
     The result of listing all Asset Administration Shells.
@@ -10411,14 +10351,6 @@ class Get_asset_administration_shells_result(DBC):
         self.result = result
 
 
-# fmt: off
-@invariant(
-    lambda self:
-    not (self.result is not None)
-    or len(self.result) >= 1,
-    "Result must be either not set or have at least one item."
-)
-# fmt: on
 class Get_asset_administration_shells_metadata_result(DBC):
     """
     The result of listing the metadata of all Asset Administration Shells.
@@ -10448,14 +10380,6 @@ class Get_asset_administration_shells_metadata_result(DBC):
         self.result = result
 
 
-# fmt: off
-@invariant(
-    lambda self:
-    not (self.result is not None)
-    or len(self.result) >= 1,
-    "Result must be either not set or have at least one item."
-)
-# fmt: on
 class Get_all_asset_administration_shells_recent_changes_result(DBC):
     """
     The result of listing the recent changes of all Asset Administration Shells.
@@ -10485,14 +10409,6 @@ class Get_all_asset_administration_shells_recent_changes_result(DBC):
         self.result = result
 
 
-# fmt: off
-@invariant(
-    lambda self:
-    not (self.result is not None)
-    or len(self.result) >= 1,
-    "Result must be either not set or have at least one item."
-)
-# fmt: on
 class Get_asset_administration_shell_descriptors_result(DBC):
     """
     The result of listing all Asset Administration Shell descriptors.
@@ -10522,14 +10438,6 @@ class Get_asset_administration_shell_descriptors_result(DBC):
         self.result = result
 
 
-# fmt: off
-@invariant(
-    lambda self:
-    not (self.result is not None)
-    or len(self.result) >= 1,
-    "Result must be either not set or have at least one item."
-)
-# fmt: on
 class Get_concept_descriptions_result(DBC):
     """
     The result of listing all concept descriptions.
@@ -10559,14 +10467,6 @@ class Get_concept_descriptions_result(DBC):
         self.result = result
 
 
-# fmt: off
-@invariant(
-    lambda self:
-    not (self.result is not None)
-    or len(self.result) >= 1,
-    "Result must be either not set or have at least one item."
-)
-# fmt: on
 class Get_all_concept_descriptions_recent_changes_result(DBC):
     """
     The result of listing the recent changes of all concept descriptions.
@@ -10596,14 +10496,6 @@ class Get_all_concept_descriptions_recent_changes_result(DBC):
         self.result = result
 
 
-# fmt: off
-@invariant(
-    lambda self:
-    not (self.result is not None)
-    or len(self.result) >= 1,
-    "Result must be either not set or have at least one item."
-)
-# fmt: on
 class Get_package_descriptions_result(DBC):
     """
     The result of listing all AASX package descriptions.
@@ -10633,14 +10525,6 @@ class Get_package_descriptions_result(DBC):
         self.result = result
 
 
-# fmt: off
-@invariant(
-    lambda self:
-    not (self.result is not None)
-    or len(self.result) >= 1,
-    "Result must be either not set or have at least one item."
-)
-# fmt: on
 class Get_path_items_result(DBC):
     """
     The result of listing idShortPaths.
@@ -10670,14 +10554,6 @@ class Get_path_items_result(DBC):
         self.result = result
 
 
-# fmt: off
-@invariant(
-    lambda self:
-    not (self.result is not None)
-    or len(self.result) >= 1,
-    "Result must be either not set or have at least one item."
-)
-# fmt: on
 class Get_references_result(DBC):
     """
     The result of listing references.
@@ -10707,14 +10583,6 @@ class Get_references_result(DBC):
         self.result = result
 
 
-# fmt: off
-@invariant(
-    lambda self:
-    not (self.result is not None)
-    or len(self.result) >= 1,
-    "Result must be either not set or have at least one item."
-)
-# fmt: on
 class Get_submodel_descriptors_result(DBC):
     """
     The result of listing all submodel descriptors.
@@ -10744,14 +10612,6 @@ class Get_submodel_descriptors_result(DBC):
         self.result = result
 
 
-# fmt: off
-@invariant(
-    lambda self:
-    not (self.result is not None)
-    or len(self.result) >= 1,
-    "Result must be either not set or have at least one item."
-)
-# fmt: on
 class Get_submodel_elements_metadata_result(DBC):
     """
     The result of listing the metadata of all submodel elements.
@@ -10782,12 +10642,6 @@ class Get_submodel_elements_metadata_result(DBC):
 
 
 # fmt: off
-@invariant(
-    lambda self:
-    not (self.result is not None)
-    or len(self.result) >= 1,
-    "Result must be either not set or have at least one item."
-)
 @invariant(
     lambda self:
     not (self.result is not None)
@@ -10866,14 +10720,6 @@ class Get_submodel_elements_value_result(DBC):
         self.result = result
 
 
-# fmt: off
-@invariant(
-    lambda self:
-    not (self.result is not None)
-    or len(self.result) >= 1,
-    "Result must be either not set or have at least one item."
-)
-# fmt: on
 class Get_all_submodels_recent_changes_result(DBC):
     """
     The result of listing the recent changes of all submodels.
@@ -10903,14 +10749,6 @@ class Get_all_submodels_recent_changes_result(DBC):
         self.result = result
 
 
-# fmt: off
-@invariant(
-    lambda self:
-    not (self.result is not None)
-    or len(self.result) >= 1,
-    "Result must be either not set or have at least one item."
-)
-# fmt: on
 class Get_submodels_metadata_result(DBC):
     """
     The result of listing the metadata of all submodels.
@@ -10940,14 +10778,6 @@ class Get_submodels_metadata_result(DBC):
         self.result = result
 
 
-# fmt: off
-@invariant(
-    lambda self:
-    not (self.result is not None)
-    or len(self.result) >= 1,
-    "Result must be either not set or have at least one item."
-)
-# fmt: on
 class Get_submodels_result(DBC):
     """
     The result of listing all submodels.
@@ -12349,14 +12179,6 @@ class Query_filter(DBC):
         self.condition = condition
 
 
-# fmt: off
-@invariant(
-    lambda self:
-    not (self.filters is not None)
-    or len(self.filters) >= 1,
-    "Filters must be either not set or have at least one item."
-)
-# fmt: on
 class Query(DBC):
     """
     A query in the AAS Query Language.
@@ -12469,4 +12291,4 @@ Logical_expression = Union[
 
 # endregion Part 2
 
-# Downloaded from: https://raw.githubusercontent.com/eclipse-aascw/aas-core-meta/2244c160abe5409a5171342e21a8d7f1cdd6f9c8/aas_core_meta/v3_2.py
+# Downloaded from: https://raw.githubusercontent.com/eclipse-aascw/aas-core-meta/63cbfd368a915a6696c6dec5b455dd5430ba652a/aas_core_meta/v3_2.py
