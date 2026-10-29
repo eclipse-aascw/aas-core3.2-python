@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "aas-core3.2"
 # Synchronize with __init__.py and changelog.rst!
-version = "1.0.0rc1"
+version = "1.0.0rc2"
 description = "Manipulate, verify and de/serialize Asset Administration Shells v3.2."
 readme = { file = "README.rst", content-type = "text/x-rst" }
 requires-python = ">=3.9"
