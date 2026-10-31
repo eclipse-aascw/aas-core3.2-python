@@ -204,10 +204,12 @@ class DeserializationException(Exception):
 # Recursive definitions are not yet available in mypy
 # (see https://github.com/python/mypy/issues/731). We have to use ``Any``
 # here, instead of recursive type annotations.
-Jsonable = Union[bool, int, float, str, Sequence[Any], Mapping[str, Any]]
+Jsonable = Union[None, bool, int, float, str, Sequence[Any], Mapping[str, Any]]
 
 
-MutableJsonable = Union[bool, int, float, str, List[Any], MutableMapping[str, Any]]
+MutableJsonable = Union[
+    None, bool, int, float, str, List[Any], MutableMapping[str, Any]
+]
 
 
 # region De-serialization
@@ -397,11 +399,10 @@ def _json_value_from_jsonable(jsonable: Jsonable) -> our_types.JsonValue:
     Parse :paramref:`jsonable` as a JSON-able value.
 
     A JSON-able value is, recursively, exactly as JSON itself is defined:
-    a boolean, a number, a string, an array of JSON-able values or an object
-    of JSON-able values with string keys. A ``None`` is rejected at any
-    depth, as the JSON ``null`` has no representation as a JSON-able value,
-    and so are an infinity and a not-a-number, which JSON can not represent
-    at all.
+    a ``None`` (JSON null), a boolean, a number, a string, an array of
+    JSON-able values or an object of JSON-able values with string keys.
+    An infinity and a not-a-number are rejected at any depth, as JSON can not
+    represent them at all.
 
     The result is a new structure, and never :paramref:`jsonable` itself, so
     that the parsed instance does not alias the document it came from.
@@ -410,6 +411,9 @@ def _json_value_from_jsonable(jsonable: Jsonable) -> our_types.JsonValue:
     :return: parsed JSON-able value
     :raise: :py:class:`DeserializationException` if unexpected :paramref:`jsonable`
     """
+    if jsonable is None:
+        return None
+
     # NOTE (mristin):
     # A ``bool`` is an ``int`` in Python, so it has to be checked first --
     # otherwise every boolean would come out as a number.
@@ -476,8 +480,8 @@ def _json_value_from_jsonable(jsonable: Jsonable) -> our_types.JsonValue:
         return items
 
     raise DeserializationException(
-        f"Expected a JSON-able value (a boolean, a number, a string, an array "
-        f"or an object), but got: {type(jsonable)}"
+        f"Expected a JSON-able value (a null, a boolean, a number, a string, "
+        f"an array or an object), but got: {type(jsonable)}"
     )
 
 
@@ -8672,7 +8676,7 @@ def get_submodel_elements_value_result_from_jsonable(
     mapping = _as_mapping(jsonable)
 
     the_paging_metadata: Optional[our_types.PagingMetadata] = None
-    the_result: Optional[our_types.JsonObject] = None
+    the_result: Optional[List[our_types.JsonObject]] = None
 
     unexpected_key: Optional[str] = None
 
@@ -8681,7 +8685,7 @@ def get_submodel_elements_value_result_from_jsonable(
             if key == "paging_metadata":
                 the_paging_metadata = paging_metadata_from_jsonable(jsonable_value)
             elif key == "result":
-                the_result = _json_object_from_jsonable(jsonable_value)
+                the_result = _list_of__json_object_from_jsonable(jsonable_value)
             else:
                 unexpected_key = key
                 break
@@ -8842,7 +8846,7 @@ def get_submodels_value_result_from_jsonable(
     mapping = _as_mapping(jsonable)
 
     the_paging_metadata: Optional[our_types.PagingMetadata] = None
-    the_result: Optional[our_types.JsonObject] = None
+    the_result: Optional[List[our_types.JsonObject]] = None
 
     unexpected_key: Optional[str] = None
 
@@ -8851,7 +8855,7 @@ def get_submodels_value_result_from_jsonable(
             if key == "paging_metadata":
                 the_paging_metadata = paging_metadata_from_jsonable(jsonable_value)
             elif key == "result":
-                the_result = _json_object_from_jsonable(jsonable_value)
+                the_result = _list_of__json_object_from_jsonable(jsonable_value)
             else:
                 unexpected_key = key
                 break
@@ -11195,10 +11199,9 @@ def _json_value_to_jsonable(value: our_types.JsonValue) -> MutableJsonable:
     Serialize :paramref:`value` as a JSON-able structure.
 
     A JSON-able value is almost JSON-able as it comes, but not quite: its type
-    rules out neither a ``None``, which the JSON ``null`` gives no
-    representation for, nor an infinity and a not-a-number, which JSON can not
+    rules out neither an infinity and a not-a-number, which JSON can not
     represent at all, nor a non-string key in an object. Each is refused here,
-    at any depth.
+    at any depth. A ``None`` is written out as a JSON null.
 
     The result is a new structure, and never :paramref:`value` itself, so that
     the serialized document does not alias the instance it came from.
@@ -11207,6 +11210,9 @@ def _json_value_to_jsonable(value: our_types.JsonValue) -> MutableJsonable:
     :return: :paramref:`value`, as a JSON-able structure
     :raise: :py:class:`SerializationException` if :paramref:`value` is not JSON-able
     """
+    if value is None:
+        return None
+
     # NOTE (mristin):
     # A ``bool`` is an ``int`` in Python, so it has to be checked first --
     # otherwise every boolean would come out as a number.
@@ -11269,8 +11275,8 @@ def _json_value_to_jsonable(value: our_types.JsonValue) -> MutableJsonable:
         return items
 
     raise SerializationException(
-        f"Expected a JSON-able value (a boolean, a number, a string, an array "
-        f"or an object), but got: {type(value)}"
+        f"Expected a JSON-able value (a null, a boolean, a number, a string, "
+        f"an array or an object), but got: {type(value)}"
     )
 
 
@@ -16766,7 +16772,7 @@ def _get_submodel_elements_value_result_to_jsonable(
         raise
     if that.result is not None:
         try:
-            jsonable["result"] = _json_value_to_jsonable(that.result)
+            jsonable["result"] = _list_of__json_object_to_jsonable(that.result)
         except SerializationException as exception:
             exception._prepend_property("result")
             raise
@@ -16844,7 +16850,7 @@ def _get_submodels_value_result_to_jsonable(
         raise
     if that.result is not None:
         try:
-            jsonable["result"] = _json_value_to_jsonable(that.result)
+            jsonable["result"] = _list_of__json_object_to_jsonable(that.result)
         except SerializationException as exception:
             exception._prepend_property("result")
             raise

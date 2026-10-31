@@ -34894,7 +34894,7 @@ def _read_get_submodel_elements_value_result_as_sequence(
     the_paging_metadata: Optional[our_types.PagingMetadata] = values.get(
         "pagingMetadata"
     )
-    the_result: Optional[our_types.JsonObject] = values.get("result")
+    the_result: Optional[List[our_types.JsonObject]] = values.get("result")
 
     if the_paging_metadata is None:
         raise DeserializationException(
@@ -35121,7 +35121,7 @@ def _read_get_submodels_value_result_as_sequence(
     the_paging_metadata: Optional[our_types.PagingMetadata] = values.get(
         "pagingMetadata"
     )
-    the_result: Optional[our_types.JsonObject] = values.get("result")
+    the_result: Optional[List[our_types.JsonObject]] = values.get("result")
 
     if the_paging_metadata is None:
         raise DeserializationException(
@@ -39304,7 +39304,7 @@ _READERS_FOR_GET_SUBMODEL_ELEMENTS_RESULT: Mapping[str, _ContentReader[Any]] = {
 #: :py:class:`.types.GetSubmodelElementsValueResult`, by the XML name of the property
 _READERS_FOR_GET_SUBMODEL_ELEMENTS_VALUE_RESULT: Mapping[str, _ContentReader[Any]] = {
     "pagingMetadata": _read_paging_metadata_as_sequence,
-    "result": _read_json_object_body,
+    "result": _read_list_of__json_object,
 }
 
 
@@ -39338,7 +39338,7 @@ _READERS_FOR_GET_SUBMODELS_RESULT: Mapping[str, _ContentReader[Any]] = {
 #: :py:class:`.types.GetSubmodelsValueResult`, by the XML name of the property
 _READERS_FOR_GET_SUBMODELS_VALUE_RESULT: Mapping[str, _ContentReader[Any]] = {
     "pagingMetadata": _read_paging_metadata_as_sequence,
-    "result": _read_json_object_body,
+    "result": _read_list_of__json_object,
 }
 
 
@@ -45173,7 +45173,13 @@ def _write_get_submodel_elements_value_result_as_element(
             "pagingMetadata", "paging_metadata", that.paging_metadata, serializer
         )
         if that.result is not None:
-            _write_json_object_as_element("result", "result", that.result, serializer)
+            _write_list_of_items(
+                "result",
+                "result",
+                that.result,
+                _write_json_object_as_element,
+                serializer,
+            )
         serializer.writer.write_end_element(name)
     except Exception as exception:
         _attribute_to_property(exception, prop_name)
@@ -45289,7 +45295,13 @@ def _write_get_submodels_value_result_as_element(
             "pagingMetadata", "paging_metadata", that.paging_metadata, serializer
         )
         if that.result is not None:
-            _write_json_object_as_element("result", "result", that.result, serializer)
+            _write_list_of_items(
+                "result",
+                "result",
+                that.result,
+                _write_json_object_as_element,
+                serializer,
+            )
         serializer.writer.write_end_element(name)
     except Exception as exception:
         _attribute_to_property(exception, prop_name)

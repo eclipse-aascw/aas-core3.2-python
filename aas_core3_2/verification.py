@@ -9266,19 +9266,9 @@ class _Transformer(our_types.AbstractTransformer[Iterator[Error]]):
             yield error
 
         if that.result is not None:
-            for error in our_json_value_verification.verify_json_object(that.result):
+            for error in _verify_list_of__json_object(that.result):
                 error.path._prepend(PropertySegment(that, "result"))
                 yield error
-
-            for key in that.result:
-                # NOTE (mristin):
-                # The key segment names the member whose key is erroneous. The path
-                # thus leads to the member, and the cause says what is wrong with
-                # the key which names it.
-                for error in verify_id_short_type(key):
-                    error.path._prepend(KeySegment(that.result, key))
-                    error.path._prepend(PropertySegment(that, "result"))
-                    yield error
 
     # noinspection PyMethodMayBeStatic
     def transform_get_all_submodels_recent_changes_result(
@@ -9328,19 +9318,9 @@ class _Transformer(our_types.AbstractTransformer[Iterator[Error]]):
             yield error
 
         if that.result is not None:
-            for error in our_json_value_verification.verify_json_object(that.result):
+            for error in _verify_list_of__json_object(that.result):
                 error.path._prepend(PropertySegment(that, "result"))
                 yield error
-
-            for key in that.result:
-                # NOTE (mristin):
-                # The key segment names the member whose key is erroneous. The path
-                # thus leads to the member, and the cause says what is wrong with
-                # the key which names it.
-                for error in verify_id_short_type(key):
-                    error.path._prepend(KeySegment(that.result, key))
-                    error.path._prepend(PropertySegment(that, "result"))
-                    yield error
 
     # noinspection PyMethodMayBeStatic
     def transform_claim_attribute(
