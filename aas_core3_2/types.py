@@ -107,9 +107,14 @@ ContextT = TypeVar("ContextT")
 
 # NOTE (mristin):
 # A JSON-able value is, recursively, exactly as JSON itself is defined:
-# a boolean, a number, a string, an array of JSON-able values or an object
-# of JSON-able values with string keys -- never a ``None``, and never
+# a ``None`` (JSON null), a boolean, a number, a string, an array of JSON-able
+# values or an object of JSON-able values with string keys -- never
 # an infinity or a not-a-number, neither of which JSON can represent.
+#
+# A ``None`` might appear at any depth, including the value itself. Since
+# an absent optional property is also ``None``, an optional JSON-able property
+# which is a JSON null is indistinguishable from an absent one, and is treated
+# as absent.
 #
 # JSON knows a single numeric type. Python tells an ``int`` from a ``float``,
 # and a caller will naturally write either, so both are admitted here -- but
@@ -121,7 +126,7 @@ ContextT = TypeVar("ContextT")
 # Recursive type aliases are not yet available in mypy
 # (see https://github.com/python/mypy/issues/731), so the item and the value
 # types have to be spelled ``Any`` instead of ``JsonValue``.
-JsonValue = Union[bool, int, float, str, Sequence[Any], Mapping[str, Any]]
+JsonValue = Union[None, bool, int, float, str, Sequence[Any], Mapping[str, Any]]
 
 
 #: Represent a JSON-able value which is known to be an array
@@ -13267,11 +13272,16 @@ class GetSubmodelElementsValueResult(Class):
 
     .. note::
 
-        The result is given in the ValueOnly serialization, *i.e.*, as
-        a JSON object whose keys are the ID-shorts of the submodel elements
-        and whose values are their ValueOnly serializations. Their shape
-        depends on the concrete submodel elements and can not be pinned down
-        statically, so the result is represented as an open JSON object.
+        Each item of the result is a submodel element given in the ValueOnly
+        serialization, *i.e.*, as a JSON object with a single key, the ID-short
+        of the submodel element, whose value is its ValueOnly serialization.
+        The shape of the value depends on the concrete submodel element and
+        can not be pinned down statically, so each item is represented as
+        an open JSON object.
+
+        Unlike the OpenAPI schema, which types the result as a single JSON
+        object since V3.0.4, we follow BaSyx Go and represent the result as
+        an array of items. We suspect the OpenAPI schema to be buggy here.
 
     See:
     https://industrialdigitaltwin.io/aas-specifications/IDTA-01002/v3.2/http-rest-api/http-rest-api.html#pagination
@@ -13282,7 +13292,12 @@ class GetSubmodelElementsValueResult(Class):
     paging_metadata: "PagingMetadata"
 
     #: The returned items.
-    result: Optional[JsonObject]
+    result: Optional[List[JsonObject]]
+
+    def over_result_or_empty(self) -> Iterator[JsonObject]:
+        """Yield from :py:attr:`.result` if set."""
+        if self.result is not None:
+            yield from self.result
 
     def descend_once(self) -> Iterator[Class]:
         """
@@ -13342,7 +13357,9 @@ class GetSubmodelElementsValueResult(Class):
         )
 
     def __init__(
-        self, paging_metadata: "PagingMetadata", result: Optional[JsonObject] = None
+        self,
+        paging_metadata: "PagingMetadata",
+        result: Optional[List[JsonObject]] = None,
     ) -> None:
         """Initialize with the given values."""
         self.paging_metadata = paging_metadata
@@ -13639,11 +13656,17 @@ class GetSubmodelsValueResult(Class):
 
     .. note::
 
-        The result is given in the ValueOnly serialization, *i.e.*, as
-        a JSON object whose keys are the ID-shorts of the submodel elements
-        and whose values are their ValueOnly serializations. Their shape
-        depends on the concrete submodel elements and can not be pinned down
-        statically, so the result is represented as an open JSON object.
+        Each item of the result is a submodel given in the ValueOnly
+        serialization, *i.e.*, as a JSON object whose keys are the ID-shorts
+        of the submodel elements and whose values are their ValueOnly
+        serializations. Their shape depends on the concrete submodel elements
+        and can not be pinned down statically, so each item is represented
+        as an open JSON object.
+
+        Unlike the OpenAPI schema, which types the result as a single
+        SubmodelValue since V3.0.4, we follow BaSyx Go and represent
+        the result as an array of items. We suspect the OpenAPI schema to be
+        buggy here.
 
     See:
     https://industrialdigitaltwin.io/aas-specifications/IDTA-01002/v3.2/http-rest-api/http-rest-api.html#pagination
@@ -13654,7 +13677,12 @@ class GetSubmodelsValueResult(Class):
     paging_metadata: "PagingMetadata"
 
     #: The returned items.
-    result: Optional[JsonObject]
+    result: Optional[List[JsonObject]]
+
+    def over_result_or_empty(self) -> Iterator[JsonObject]:
+        """Yield from :py:attr:`.result` if set."""
+        if self.result is not None:
+            yield from self.result
 
     def descend_once(self) -> Iterator[Class]:
         """
@@ -13714,7 +13742,9 @@ class GetSubmodelsValueResult(Class):
         )
 
     def __init__(
-        self, paging_metadata: "PagingMetadata", result: Optional[JsonObject] = None
+        self,
+        paging_metadata: "PagingMetadata",
+        result: Optional[List[JsonObject]] = None,
     ) -> None:
         """Initialize with the given values."""
         self.paging_metadata = paging_metadata

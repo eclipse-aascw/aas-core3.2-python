@@ -7642,6 +7642,43 @@ class TestGetSubmodelElementsResult(unittest.TestCase):
             tests.common.record_or_check(expected_path, got_text)
 
 
+class TestGetSubmodelElementsValueResult(unittest.TestCase):
+    def test_over_result_or_empty_against_recorded(self) -> None:
+        for minimal_or_maximal in ["minimal", "maximal"]:
+            instance = tests.common_xmlization.must_load(
+                pathlib.Path(
+                    tests.common.TEST_DATA_DIR
+                    / "Xml"
+                    / "Expected"
+                    / "getSubmodelElementsValueResult"
+                    / f"{minimal_or_maximal}.xml"
+                )
+            )
+
+            assert isinstance(instance, our_types.GetSubmodelElementsValueResult)
+
+            log = [
+                tests.common.trace(
+                    [
+                        tests.common.trace_json(item)
+                        for item in instance.over_result_or_empty()
+                    ]
+                )
+            ]
+
+            got_text = tests.common.trace_log_as_text_file_content(log)
+
+            expected_path = pathlib.Path(
+                tests.common.TEST_DATA_DIR
+                / "test_over_X_or_empty"
+                / "getSubmodelElementsValueResult"
+                / f"on_{minimal_or_maximal}.xml"
+                / "over_result_or_empty.trace"
+            )
+
+            tests.common.record_or_check(expected_path, got_text)
+
+
 class TestGetAllSubmodelsRecentChangesResult(unittest.TestCase):
     def test_over_result_or_empty_against_recorded(self) -> None:
         for minimal_or_maximal in ["minimal", "maximal"]:
@@ -7725,6 +7762,43 @@ class TestGetSubmodelsResult(unittest.TestCase):
                 tests.common.TEST_DATA_DIR
                 / "test_over_X_or_empty"
                 / "getSubmodelsResult"
+                / f"on_{minimal_or_maximal}.xml"
+                / "over_result_or_empty.trace"
+            )
+
+            tests.common.record_or_check(expected_path, got_text)
+
+
+class TestGetSubmodelsValueResult(unittest.TestCase):
+    def test_over_result_or_empty_against_recorded(self) -> None:
+        for minimal_or_maximal in ["minimal", "maximal"]:
+            instance = tests.common_xmlization.must_load(
+                pathlib.Path(
+                    tests.common.TEST_DATA_DIR
+                    / "Xml"
+                    / "Expected"
+                    / "getSubmodelsValueResult"
+                    / f"{minimal_or_maximal}.xml"
+                )
+            )
+
+            assert isinstance(instance, our_types.GetSubmodelsValueResult)
+
+            log = [
+                tests.common.trace(
+                    [
+                        tests.common.trace_json(item)
+                        for item in instance.over_result_or_empty()
+                    ]
+                )
+            ]
+
+            got_text = tests.common.trace_log_as_text_file_content(log)
+
+            expected_path = pathlib.Path(
+                tests.common.TEST_DATA_DIR
+                / "test_over_X_or_empty"
+                / "getSubmodelsValueResult"
                 / f"on_{minimal_or_maximal}.xml"
                 / "over_result_or_empty.trace"
             )
