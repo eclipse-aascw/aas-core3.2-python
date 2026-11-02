@@ -394,7 +394,7 @@ def _list_from_jsonable(
     return result
 
 
-def _json_value_from_jsonable(jsonable: Jsonable) -> our_types.JsonValue:
+def json_value_from_jsonable(jsonable: Jsonable) -> our_types.JsonValue:
     """
     Parse :paramref:`jsonable` as a JSON-able value.
 
@@ -425,14 +425,12 @@ def _json_value_from_jsonable(jsonable: Jsonable) -> our_types.JsonValue:
         # JSON knows a single numeric type, so :py:mod:`json` giving us
         # an ``int`` says nothing about the document: "1" and "1.0" are
         # the same number, and a JSON-able value holds it as a ``float``.
-        number = our_common.try_to_convert_int_to_float(jsonable)
-        if number is None:
+        if not our_common.is_safe_integer(jsonable):
             raise DeserializationException(
-                f"Expected a JSON-able value, but got the integer {jsonable}, "
-                f"which is not exactly representable as a JSON number"
+                our_common.unsafe_json_able_integer_message(jsonable)
             )
 
-        return number
+        return float(jsonable)
 
     if isinstance(jsonable, float):
         # NOTE (mristin):
@@ -460,7 +458,7 @@ def _json_value_from_jsonable(jsonable: Jsonable) -> our_types.JsonValue:
                 )
 
             try:
-                mapping[key] = _json_value_from_jsonable(jsonable_value)
+                mapping[key] = json_value_from_jsonable(jsonable_value)
             except DeserializationException as exception:
                 exception.path._prepend(KeySegment(jsonable, key))
                 raise
@@ -472,7 +470,7 @@ def _json_value_from_jsonable(jsonable: Jsonable) -> our_types.JsonValue:
         items: List[Any] = []
         for i, jsonable_item in enumerate(array_like):
             try:
-                items.append(_json_value_from_jsonable(jsonable_item))
+                items.append(json_value_from_jsonable(jsonable_item))
             except DeserializationException as exception:
                 exception.path._prepend(IndexSegment(array_like, i))
                 raise
@@ -485,7 +483,25 @@ def _json_value_from_jsonable(jsonable: Jsonable) -> our_types.JsonValue:
     )
 
 
-def _json_object_from_jsonable(jsonable: Jsonable) -> our_types.JsonObject:
+def json_array_from_jsonable(jsonable: Jsonable) -> our_types.JsonArray:
+    """
+    Parse :paramref:`jsonable` as a JSON-able array.
+
+    :param jsonable: JSON-able structure to be parsed
+    :return: parsed JSON-able array
+    :raise: :py:class:`DeserializationException` if unexpected :paramref:`jsonable`
+    """
+    if our_common.try_to_cast_to_array_like(jsonable) is None:
+        raise DeserializationException(
+            f"Expected a JSON-able array, but got: {type(jsonable)}"
+        )
+
+    result = json_value_from_jsonable(jsonable)
+    assert isinstance(result, list)
+    return result
+
+
+def json_object_from_jsonable(jsonable: Jsonable) -> our_types.JsonObject:
     """
     Parse :paramref:`jsonable` as a JSON-able object.
 
@@ -498,7 +514,7 @@ def _json_object_from_jsonable(jsonable: Jsonable) -> our_types.JsonObject:
             f"Expected a JSON-able object, but got: {type(jsonable)}"
         )
 
-    result = _json_value_from_jsonable(jsonable)
+    result = json_value_from_jsonable(jsonable)
     assert isinstance(result, dict)
     return result
 
@@ -727,7 +743,7 @@ def _list_of__json_object_from_jsonable(
     :return: parsed list
     :raise: :py:class:`DeserializationException` if unexpected :paramref:`jsonable`
     """
-    return _list_from_jsonable(jsonable, _json_object_from_jsonable)
+    return _list_from_jsonable(jsonable, json_object_from_jsonable)
 
 
 def _list_of__key_from_jsonable(jsonable: Jsonable) -> List[our_types.Key]:
@@ -5662,9 +5678,9 @@ def operation_request_value_only_from_jsonable(
     try:
         for key, jsonable_value in mapping.items():
             if key == "inputArguments":
-                the_input_arguments = _json_object_from_jsonable(jsonable_value)
+                the_input_arguments = json_object_from_jsonable(jsonable_value)
             elif key == "inoutputArguments":
-                the_inoutput_arguments = _json_object_from_jsonable(jsonable_value)
+                the_inoutput_arguments = json_object_from_jsonable(jsonable_value)
             elif key == "clientTimeoutDuration":
                 the_client_timeout_duration = _str_from_jsonable(jsonable_value)
             else:
@@ -5704,9 +5720,9 @@ def operation_request_async_value_only_from_jsonable(
     try:
         for key, jsonable_value in mapping.items():
             if key == "inputArguments":
-                the_input_arguments = _json_object_from_jsonable(jsonable_value)
+                the_input_arguments = json_object_from_jsonable(jsonable_value)
             elif key == "inoutputArguments":
-                the_inoutput_arguments = _json_object_from_jsonable(jsonable_value)
+                the_inoutput_arguments = json_object_from_jsonable(jsonable_value)
             elif key == "clientTimeoutDuration":
                 the_client_timeout_duration = _str_from_jsonable(jsonable_value)
             else:
@@ -5863,9 +5879,9 @@ def operation_result_value_only_from_jsonable(
             elif key == "success":
                 the_success = _bool_from_jsonable(jsonable_value)
             elif key == "outputArguments":
-                the_output_arguments = _json_object_from_jsonable(jsonable_value)
+                the_output_arguments = json_object_from_jsonable(jsonable_value)
             elif key == "inoutputArguments":
-                the_inoutput_arguments = _json_object_from_jsonable(jsonable_value)
+                the_inoutput_arguments = json_object_from_jsonable(jsonable_value)
             else:
                 unexpected_key = key
                 break
@@ -8071,7 +8087,7 @@ def annotated_relationship_element_value_from_jsonable(
             elif key == "second":
                 the_second = reference_from_jsonable(jsonable_value)
             elif key == "annotations":
-                the_annotations = _json_object_from_jsonable(jsonable_value)
+                the_annotations = json_object_from_jsonable(jsonable_value)
             else:
                 unexpected_key = key
                 break
@@ -8116,7 +8132,7 @@ def entity_value_from_jsonable(jsonable: Jsonable) -> our_types.EntityValue:
                     jsonable_value
                 )
             elif key == "statements":
-                the_statements = _json_object_from_jsonable(jsonable_value)
+                the_statements = json_object_from_jsonable(jsonable_value)
             else:
                 unexpected_key = key
                 break
@@ -11194,7 +11210,7 @@ def _float_to_jsonable(that: float) -> float:
     return that
 
 
-def _json_value_to_jsonable(value: our_types.JsonValue) -> MutableJsonable:
+def json_value_to_jsonable(value: our_types.JsonValue) -> MutableJsonable:
     """
     Serialize :paramref:`value` as a JSON-able structure.
 
@@ -11222,13 +11238,12 @@ def _json_value_to_jsonable(value: our_types.JsonValue) -> MutableJsonable:
     if isinstance(value, int):
         # NOTE (mristin):
         # An ``int`` is written out as it stands. JSON knows a single
-        # numeric type, though, so it has to be one which a ``float`` can
-        # hold exactly -- otherwise a reader, which reads every number as
-        # a ``float``, would get a different number back.
-        if our_common.try_to_convert_int_to_float(value) is None:
+        # numeric type, though, so it has to lie in the safe integer range
+        # [-2^53 + 1, 2^53 - 1] -- otherwise a reader, which reads every number
+        # as a ``float``, might get a different number back.
+        if not our_common.is_safe_integer(value):
             raise SerializationException(
-                f"Expected a JSON-able value, but got the integer {value}, "
-                f"which is not exactly representable as a JSON number"
+                our_common.unsafe_json_able_integer_message(value)
             )
 
         return value
@@ -11255,7 +11270,7 @@ def _json_value_to_jsonable(value: our_types.JsonValue) -> MutableJsonable:
                 )
 
             try:
-                mapping[key] = _json_value_to_jsonable(item_value)
+                mapping[key] = json_value_to_jsonable(item_value)
             except SerializationException as exception:
                 exception._prepend_key(key)
                 raise
@@ -11267,7 +11282,7 @@ def _json_value_to_jsonable(value: our_types.JsonValue) -> MutableJsonable:
         items: List[Any] = []
         for i, item_value in enumerate(array_like):
             try:
-                items.append(_json_value_to_jsonable(item_value))
+                items.append(json_value_to_jsonable(item_value))
             except SerializationException as exception:
                 exception._prepend_index(i)
                 raise
@@ -11525,7 +11540,7 @@ def _list_of__json_object_to_jsonable(
     jsonable: List[MutableJsonable] = []
     for i, item in enumerate(that):
         try:
-            jsonable.append(_json_value_to_jsonable(item))
+            jsonable.append(json_value_to_jsonable(item))
         except SerializationException as exception:
             exception._prepend_index(i)
             raise
@@ -14862,13 +14877,13 @@ def _operation_request_value_only_to_jsonable(
     jsonable: MutableMapping[str, MutableJsonable] = {}
     if that.input_arguments is not None:
         try:
-            jsonable["inputArguments"] = _json_value_to_jsonable(that.input_arguments)
+            jsonable["inputArguments"] = json_value_to_jsonable(that.input_arguments)
         except SerializationException as exception:
             exception._prepend_property("input_arguments")
             raise
     if that.inoutput_arguments is not None:
         try:
-            jsonable["inoutputArguments"] = _json_value_to_jsonable(
+            jsonable["inoutputArguments"] = json_value_to_jsonable(
                 that.inoutput_arguments
             )
         except SerializationException as exception:
@@ -14890,13 +14905,13 @@ def _operation_request_async_value_only_to_jsonable(
     jsonable: MutableMapping[str, MutableJsonable] = {}
     if that.input_arguments is not None:
         try:
-            jsonable["inputArguments"] = _json_value_to_jsonable(that.input_arguments)
+            jsonable["inputArguments"] = json_value_to_jsonable(that.input_arguments)
         except SerializationException as exception:
             exception._prepend_property("input_arguments")
             raise
     if that.inoutput_arguments is not None:
         try:
-            jsonable["inoutputArguments"] = _json_value_to_jsonable(
+            jsonable["inoutputArguments"] = json_value_to_jsonable(
                 that.inoutput_arguments
             )
         except SerializationException as exception:
@@ -15000,13 +15015,13 @@ def _operation_result_value_only_to_jsonable(
             raise
     if that.output_arguments is not None:
         try:
-            jsonable["outputArguments"] = _json_value_to_jsonable(that.output_arguments)
+            jsonable["outputArguments"] = json_value_to_jsonable(that.output_arguments)
         except SerializationException as exception:
             exception._prepend_property("output_arguments")
             raise
     if that.inoutput_arguments is not None:
         try:
-            jsonable["inoutputArguments"] = _json_value_to_jsonable(
+            jsonable["inoutputArguments"] = json_value_to_jsonable(
                 that.inoutput_arguments
             )
         except SerializationException as exception:
@@ -16477,7 +16492,7 @@ def _annotated_relationship_element_value_to_jsonable(
             raise
     if that.annotations is not None:
         try:
-            jsonable["annotations"] = _json_value_to_jsonable(that.annotations)
+            jsonable["annotations"] = json_value_to_jsonable(that.annotations)
         except SerializationException as exception:
             exception._prepend_property("annotations")
             raise
@@ -16511,7 +16526,7 @@ def _entity_value_to_jsonable(
             raise
     if that.statements is not None:
         try:
-            jsonable["statements"] = _json_value_to_jsonable(that.statements)
+            jsonable["statements"] = json_value_to_jsonable(that.statements)
         except SerializationException as exception:
             exception._prepend_property("statements")
             raise

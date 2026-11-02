@@ -9665,6 +9665,12 @@ def verify(that: our_types.Class) -> Iterator[Error]:
     yield from _TRANSFORMER.transform(that)
 
 
+def _verify_int(that: int) -> Iterator[Error]:
+    """Verify that :paramref:`that` lies in the safe integer range."""
+    if not our_common.is_safe_integer(that):
+        yield Error(our_common.unsafe_integer_message(that))
+
+
 def _verify_list_of__class(that: Sequence[our_types.Class]) -> Iterator[Error]:
     """Verify the items of :paramref:`that` recursively."""
     for i, item in enumerate(that):
@@ -10056,6 +10062,8 @@ def verify_identifier_uom(that: str) -> Iterator[Error]:
 
 def verify_non_negative_integer(that: int) -> Iterator[Error]:
     """Verify the constraints of :paramref:`that`."""
+    yield from _verify_int(that)
+
     if not (that >= 0):
         yield Error("The value must be a non-negative integer.")
 
