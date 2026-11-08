@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2024 aas-core-meta AUTHORS
+#
+# SPDX-License-Identifier: MIT
+
 # Downloaded from: https://raw.githubusercontent.com/eclipse-aascw/aas-core-meta/543f3c05b88e61a4ec3ad90ec244055b5f9b65f0/aas_core_meta/v3_2.py
 """
 --- WORK IN PROGRESS ---

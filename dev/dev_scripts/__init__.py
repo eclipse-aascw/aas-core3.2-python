@@ -1,1 +1,5 @@
+# SPDX-FileCopyrightText: 2026 aas-core3.2-python AUTHORS
+#
+# SPDX-License-Identifier: MIT
+
 """Provide scripts for the development of the SDK."""

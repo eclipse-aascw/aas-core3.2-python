@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 
+# SPDX-FileCopyrightText: 2026 aas-core3.2-python AUTHORS
+#
+# SPDX-License-Identifier: MIT
+
 """Run pre-commit checks on the repository."""
 
 import argparse
@@ -23,6 +27,7 @@ class Step(enum.Enum):
     TEST = "test"
     DOCTEST = "doctest"
     CHECK_INIT_AND_PYPROJECT_TOML_CONSISTENT = "check-init-and-pyproject-consistent"
+    REUSE = "reuse"
 
 
 def call_and_report(
@@ -283,6 +288,23 @@ def main() -> int:
             return 1
     else:
         print("Skipped checking that __init__.py and pyproject.toml are consistent.")
+
+    if Step.REUSE in selects and Step.REUSE not in skips:
+        # NOTE (aaronzi, 2026-11-08):
+        # reuse requires Python 3.10 or newer, so it is only installed there.
+        if sys.version_info < (3, 10):
+            print("Skipped checking the REUSE compliance (requires Python >= 3.10).")
+        else:
+            print("Checking the REUSE compliance...")
+            exit_code = call_and_report(
+                verb="check the REUSE compliance",
+                cmd=[sys.executable, "-m", "reuse", "lint"],
+                cwd=repo_root,
+            )
+            if exit_code != 0:
+                return 1
+    else:
+        print("Skipped checking the REUSE compliance.")
 
     return 0
 

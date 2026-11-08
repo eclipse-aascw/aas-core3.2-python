@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2026 aas-core3.2-python AUTHORS
+#
+# SPDX-License-Identifier: MIT
+
 """Manipulate, verify and de/serialize Asset Administration Shells v3.2."""
 
 # Synchronize with pyproject.toml and changelog.rst!
