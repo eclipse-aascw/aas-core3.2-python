@@ -14,6 +14,10 @@ dependencies = [
     # them on 3.9, where we only run the tests.
     "black==26.10.1; python_version>='3.10'",
     "coverage>=6.5.0,<7",
+    # NOTE (aaronzi, 2026-11-05):
+    # The dev scripts import icontract directly. It used to come in through
+    # aas-core-codegen, which we skip on Python 3.9.
+    "icontract",
     "mypy==2.4.0; python_version>='3.10'",
     "pyinstaller>=5,<6",
     "ruff==0.17.2",
