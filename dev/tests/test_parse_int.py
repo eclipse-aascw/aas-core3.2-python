@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2026 aas-core3.2-python AUTHORS
+#
+# SPDX-License-Identifier: MIT
+
 """
 Test ``int`` on strings as used in the transpiled code.
 

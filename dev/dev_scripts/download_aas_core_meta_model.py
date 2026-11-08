@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2026 aas-core3.2-python AUTHORS
+#
+# SPDX-License-Identifier: MIT
+
 """Download the meta-model to this directory."""
 
 import argparse
@@ -12,6 +16,22 @@ GITHUB_API: Final[str] = "https://api.github.com"
 OWNER: Final[str] = "eclipse-aascw"
 REPO: Final[str] = "aas-core-meta"
 REF: Final[str] = "main"
+
+# NOTE (aaronzi, 2026-11-08):
+# The meta-model is copied verbatim from aas-core-meta, so we attribute it to
+# its authors. We only prepend the header if the upstream file does not carry
+# a license header itself, so that the header is not duplicated.
+#
+# REUSE-IgnoreStart
+_META_MODEL_LICENSE_HEADER: Final[str] = """\
+# SPDX-FileCopyrightText: 2024 aas-core-meta AUTHORS
+#
+# SPDX-License-Identifier: MIT
+
+"""
+
+_LICENSE_IDENTIFIER_TAG: Final[str] = "SPDX-License-Identifier:"
+# REUSE-IgnoreEnd
 
 
 def _latest_commit_sha_for_path(
@@ -84,7 +104,14 @@ def main() -> int:
         / "meta_model.py"
     )
 
-    out_path.write_text(f"{banner}{content.rstrip()}\n\n{banner}", encoding="utf-8")
+    license_header = (
+        "" if _LICENSE_IDENTIFIER_TAG in content else _META_MODEL_LICENSE_HEADER
+    )
+
+    out_path.write_text(
+        f"{license_header}{banner}{content.rstrip()}\n\n{banner}",
+        encoding="utf-8",
+    )
 
     print(f"Wrote {out_path} (from commit {sha[:12]}).")
     return 0

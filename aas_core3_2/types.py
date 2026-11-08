@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2026 aas-core3.2-python AUTHORS
+#
+# SPDX-License-Identifier: MIT
+
 """
 --- WORK IN PROGRESS ---
 Provide an implementation of the Asset Administration Shell (AAS) V3.2.

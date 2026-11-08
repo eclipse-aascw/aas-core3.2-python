@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2026 aas-core3.2-python AUTHORS
+#
+# SPDX-License-Identifier: MIT
+
 """
 Read and write the JSON-able values as a subset of XML-RPC.
 
