@@ -9,16 +9,23 @@ description = "Develop aas-core3.2-python."
 requires-python = ">=3.8"
 
 dependencies = [
-    "black==26.10.1",
+    # NOTE (aaronzi, 2026-11-05):
+    # black, mypy and aas-core-codegen require Python 3.10 or newer, so we skip
+    # them on 3.9, where we only run the tests.
+    "black==26.10.1; python_version>='3.10'",
     "coverage>=6.5.0,<7",
-    "mypy==2.4.0",
+    # NOTE (aaronzi, 2026-11-05):
+    # The dev scripts import icontract directly. It used to come in through
+    # aas-core-codegen, which we skip on Python 3.9.
+    "icontract",
+    "mypy==2.4.0; python_version>='3.10'",
     "pyinstaller>=5,<6",
     "ruff==0.17.2",
     "tomli; python_version<'3.11'",
     "twine",
     "requests==2.32.4",
     "types-requests==2.32.4.20250913",
-    "aas-core-codegen==0.0.27rc5"
+    "aas-core-codegen==0.0.27rc5; python_version>='3.10'"
 ]
 
 [tool.setuptools]
